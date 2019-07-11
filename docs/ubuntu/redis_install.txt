@@ -1,0 +1,12 @@
+1. redis 설치
+	- wget http://download.redis.io/releases/redis-4.0.11.tar.gz
+	- tar xvfz redis-4.0.11.tar.gz
+	- cd redis-4.0.11
+	- make
+	- make install
+	- cd utils/
+	- ./install_server.sh
+	- ps -ef|grep redis
+
+2. hiredis 설치
+	- git clone https://github.com/redis/hiredis && cd hiredis && make && make install && ldconfig

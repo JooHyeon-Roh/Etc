@@ -1,0 +1,16 @@
+1. nodejs 설치
+	- curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
+	- yum install nodejs
+
+2. npm 패키지 설치
+	- npm install pm2 node-gyp -g
+	- npm init
+
+3. pm2 실행 및 확인
+	- pm2 start main.js --name "node" (기본)
+	- pm2 start main.js --name "node" -i 8 -o ./logs/node.log (클러스터 & 로그)
+	- pm2 start id
+	- pm2 restart id || all
+	- pm2 list
+	- pm2 stop id || all
+	- pm2 delete id || all

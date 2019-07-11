@@ -1,0 +1,31 @@
+1. 패키지 설치
+	- yum install gcc gcc-c++ cpp libtool patch patchutils bzip2 zip unzip rsync wget ntp pciutils make autoconf automake libxslt openssl-devel zlib-devel curl-devel bind-utils ncurses ncurses-devel ncurses-static ncurses-term libevent libevent-devel libevent-doc libevent2-devel boost-devel git
+
+2. openssl 설치
+	- cd /home/path
+	- mkdir download
+	- cd download
+	- wget https://www.openssl.org/source/openssl-1.0.1l.tar.gz
+	- tar -xzvf openssl-1.0.1l.tar.gz
+	- cd openssl-1.0.1l
+	- ./config --prefix=/usr/local shared enable-ec enable-ecdh enable-ecdsa // root 계정으로 실행
+	- make // root 계정으로 실행
+	- make install // root 계정으로 실행
+
+3. Berkeley DB4.8 설치
+	- yum install libdb4-cxx-devel-4.8.30-13.el7.x86_64 // root 계정으로 실행
+
+4. bitcoin 설치
+	- mkdir ~/bitcoin
+	- cd ~/download
+	- git clone https://github.com/bitcoin/bitcoin.git
+	- cd bitcoin
+	- patch -p0 < bitcoin_brainboot.patch
+	- git diff
+	- ./autogen.sh // root 계정으로 실행
+	- ./configure --prefix=/home/path/bitcoin --with-gui=no --without-qt // root 계정으로 실행
+	- make // root 계정으로 실행
+	- make install // root 계정으로 실행
+
+5. bitcoin 실행
+	- /path/bitcoin/bin/bitcoind --daemon

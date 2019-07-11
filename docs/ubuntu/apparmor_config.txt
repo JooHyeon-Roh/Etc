@@ -1,0 +1,21 @@
+1. apparmor 설치
+	- apt-get install apparmor apparmor-profiles
+
+	apparmor-profiles 사용법 http://ubuntuforums.org/showthread.php?t=1008906
+
+	sudo /etc/init.d/apparmor start 시작
+	sudo /etc/init.d/apparmor stop 멈추기
+	sudo /etc/init.d/apparmor reload 다시 로딩
+	sudo /etc/init.d/apparmor status 보기
+
+	sudo apparmor_parser -r /etc/apparmor.d/<profile>사용 하고자 하는 프로그램 등록 
+
+	sudo apparmor_parser -r /etc/apparmor.d/usr.bin.firefox
+
+	/etc/apparmor.d/ 에 가보면 등록 할수 있는 놈들이 보인다.. usr.bin.firefox
+
+	disable 폴더에 이상하게 파이어 폭스가 등록 되어 있는대 제거 해주어야 한다 활성화 해야 보안이 될듯
+
+	rm -r /etc/apparmor.d/disable 비활성화 하고자 하면 이 폴더에 넣으면 될듯 함으로 제거 하지 않아도 된다..
+
+	/etc/init.d/apparmor restart

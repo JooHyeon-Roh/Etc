@@ -1,0 +1,16 @@
+1. php 설치
+	- apt-get install libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-mysql php7.2-mbstring php7.2-gd php7.2-xml 
+
+2. php 설정
+	- vim /etc/php/7.2/apache2/php.ini
+	- (아래 내용 변경)
+
+		short_open_tag = On 변경
+		date.timezone = Asia/Seoul 변경
+
+3. php 보안 설정
+	- vim /etc/php/7.2/apache2/php.ini
+	- disable_functions = exec,system,shell_exec,passthru
+	- register_globals = Off
+	- expose_php = Off
+	- magic_quotes_gpc = On

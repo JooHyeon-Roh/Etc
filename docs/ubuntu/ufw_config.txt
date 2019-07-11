@@ -1,0 +1,28 @@
+1. ufw 방화벽 정책 설정
+	- ufw enable 
+	- ufw status
+	- ufw status verbose
+	- ufw show raw
+	- ufw allow from 192.168.0.100
+	- ufw allow from 192.168.0.100 to any port 22 proto tcp 
+	- ufw allow 80/tcp 
+	- ufw allow 3306/tcp
+	- ufw delete deny 22/tcp
+	- ufw logging on
+	- ufw logging off
+
+2. ping (icmp) 허용/거부
+	- vim /etc/ufw/before.rules
+
+		 # ok icmp codes
+		-A ufw-before-input -p icmp --icmp-type destination-unreachable -j ACCEPT  → DROP으로 변경
+		-A ufw-before-input -p icmp --icmp-type source-quench -j ACCEPT  → DROP으로 변경
+		-A ufw-before-input -p icmp --icmp-type time-exceeded -j ACCEPT  → DROP으로 변경
+		-A ufw-before-input -p icmp --icmp-type parameter-problem -j ACCEPT  → DROP으로 변경
+		-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT  → DROP으로 변경
+
+		-A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP
+		-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
+		-A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
+		-A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
+		-A ufw-before-input -p icmp --icmp-type echo-request -j DROP

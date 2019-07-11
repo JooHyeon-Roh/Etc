@@ -1,0 +1,175 @@
+ubuntu 설치시 패키지 설치 및 설정
+
+1. root 패스워드 변경
+	- passwd root
+	- password
+	- password check
+
+2. 사용자 계정 생성 및 ps 설정
+	- adduser userid
+	- passwd userid
+	- password
+	- password check
+
+3. shell 색상 변경(하나만 사용)
+	- vim .bashrc
+	- PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\h:\[\e[31;1m\]\w:> \[\e[0m\]"
+    - PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
+
+4. ssh 접속을 위한 패키지 설치
+	- apt-get install ssh
+
+5. ifconfig 확인을 위한 패키지 설치
+	- apt-get install net-tools
+
+6. 각종 패키지 설치
+	- apt-get install vim curl htop gcc-8 g++-8 clang-8 cpp-8 libtool bzip2 zip unzip rsync wget git make autoconf automake libevent-2.1-6 libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev 
+
+7. clang-8 설치시 llvm7 미사용 삭제
+	- apt-get autoremove libllvm7
+
+8. sudo 권한 삭제
+	- grep "sudo" /etc/group
+	- sudo deluser brainboot sudo
+
+9.  공유  메모리  보안
+	1)  공유  메모리에  setuid  권한  및  메모리  실행  권한  제거
+
+	 #sudo vi /etc/fastab
+
+	 tmpfs /dev/shm	tmpfs	defaults,noexec,nosuid	0	0
+
+
+* 필요에 의한 설정
+
+		불필요한  포트  확인  및  차단
+
+		1)  NMAP으로  PORT  SCANNING
+		#sudo  apt-get  install  nmap
+		#sudo  nmap -v  -sT  localhost
+		#sudo  ufw  deny <불필요한  포트>
+
+		시스템  보안  인정
+		1)  Tiger  를  이용한  시스템  보안  인증
+		#sudo  apt-get  install  tiger
+		#sudo  tiger
+		#sudo  less /var/log/tiger/security.report.*
+
+		2)  해커가  숨겨  놓은  루트킷  탐지
+		#sudo  apt-get  install  rkhunter  chkrootkit
+		#sudo  chkrootkit
+		#sudo  rkhunter --update
+		#sudo  rkhunter --propupd
+		#sudo  rkhunter --check
+
+
+		sysctl  설정으로  인한  네트워크  보안
+
+		1)  IPSpoofing  공격  대비
+		#sudo  vi/etc/sysctl.conf
+		...................아래  라인을  추가...
+		#IP  Spoofing  protection
+		net.ipv4.conf.all.rp_filter = 1
+		net.ipv4.conf.default.rp_filter = 1
+
+		#Ignore  ICMP  broadcast  requests
+		net.ipv4.icmp_echo_ignore_broadcasts = 1
+		#Disable  source  packet  routing
+		net.ipv4.conf.all.accept_source_route = 0
+		net.ipv6.conf.all.accept_source_route = 0
+		net.ipv4.conf.default.accept_source_route = 0
+		net.ipv6.conf.default.accept_source_route = 0
+
+		#Ignore  send  redirects
+		net.ipv4.conf.all.send_redirects = 0
+		net.ipv4.conf.default.send_redirects = 0
+
+		#Block  SYN  attacks
+		net.ipv4.tcp_syncookies = 1
+		net.ipv4.tcp_max_syn_backlog = 2048
+		net.ipv4.tcp_synack_retries = 2
+		net.ipv4.tcp_syn_retries = 5
+
+		#Log  Martians
+		net.ipv4.conf.all.log_martians = 1
+		net.ipv4.icmp_ignore_bogus_error_responses = 1
+
+		#Ignore ICMP redirects
+		net.ipv4.conf.all.accept_redirects = 0
+		net.ipv6.conf.all.accept_redirects = 0
+		net.ipv4.conf.default.accept_redirects = 0
+		net.ipv6.conf.default.accept_redirects = 0
+
+		#Ignore  Directed  pings 
+		net.ipv4.icmp_echo_ignore_all = 1
+		:wq!
+		.............................................
+
+		#sudo sysctl -p  //재로드
+
+		출처: https://luyin.tistory.com/336 [Luyin]
+
+		
+		- root login 차단
+			PermitRootLogin no
+			PermitRootLogin forced-commands-only (root 로그인을 허용할 경우 반드시 암호가 아닌 공개키 방식으로 허용해야 합니다.)
+			UsePrivilegeSeparation yes
+			PermitEmptyPasswords no
+			MaxAuthTries 5
+			LoginGraceTime 30
+
+			# add line
+				PermitRootLogin no
+				UsePrivilegeSeparation yes
+				PermitEmptyPasswords no
+				MaxAuthTries 5
+				LoginGraceTime 60
+				PasswordAuthentication yes
+
+			systemctl restart ssh
+
+			
+		* 참고
+			Port 3022
+			Protocal 2
+			HostKey /etc/ssh/ssh_host_rsa_key
+			HostKey /etc/ssh/ssh_host_dsa_key
+			HostKey /etc/ssh/ssh_host_ecdsa_key
+			HostKey /etc/ssh/ssh_host_ed25519_key
+			UserPrivilegeSeparation yes
+
+			KeyRegenerationIntterval 3600
+			ServerKeyBits 1024
+
+			SyslogFacility AUTH
+			LogLevel INFO
+
+			LoginGraceTime 120
+			PermitRootLogin no
+			StrictModes yes
+
+			RDAAuthentication yes
+			PubkeyAuthentication yes
+
+			IgnoreThosts yes
+			RhostsRSAAuthentication no
+			HostbaseAuthenyication no
+
+			PermitEmptyPasswords no
+
+			ChallengeResponseAuthentication no
+
+			X11Forwarding yes
+			X11Displayoffset 10
+			PrintMotd no
+			PrintLastLog yes
+			TCPKeepAlive yes
+
+			AcceptEnv LANG LC_*
+
+			Subsystem sftp /usr/lib/openssh/sftp-server
+
+			UsePAM yes
+			ClientAliveInterval 300
+			ClientAliveCountMax 3
+			PasswordAuthentication yes

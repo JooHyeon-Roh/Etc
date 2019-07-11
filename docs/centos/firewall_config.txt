@@ -1,0 +1,10 @@
+1. firewall 설정
+	- firewall-cmd --permanent --zone=public --add-port=80/tcp
+	- firewall-cmd --permanent --zone=public --add-port=23000/udp
+	- firewall-cmd --permanent --zone=public --add-port=10000-10034/tcp
+	- firewall-cmd --permanent --zone=public --remove-port=10000-10034/tcp
+	- firewall-cmd --reload
+	- firewall-cmd --list-all
+
+	- vim /etc/firewalld/zones/public.xml 설정
+	- firewall-cmd --reload

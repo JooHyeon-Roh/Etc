@@ -1,0 +1,17 @@
+1. selinux 룰 확인 후 변경
+	getsebool -a | grep httpd
+	setsebool -P httpd_can_sendmail on
+	setsebool -P httpd_enable_homedirs on
+	setsebool -P httpd_read_user_content on
+	setsebool -P httpd_execmem on
+	setsebool -P httpd_can_network_connect on
+	setsebool -P httpd_ssi_exec on
+
+	chcon -Rv -t httpd_sys_rw_content_t /path/
+	chcon -Rv -t httpd_sys_script_exec_t /path/
+
+	ls -ldZ
+	ps -ZC httpd
+	drwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 apps
+	drwxr-xr-x. root root unconfined_u:object_r:httpd_log_t:s0 logs
+	drwxr-xr-x. root root unconfined_u:object_r:httpd_cache_t:s0 cache

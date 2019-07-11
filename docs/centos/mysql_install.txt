@@ -1,0 +1,123 @@
+1. mysql 설치
+	- vim /etc/yum.repos.d/MariaDB.repo
+	- (아래내용 작성후 저장)
+
+		# MariaDB 10.1 CentOS repository list
+		# http://downloads.mariadb.org/mariadb/repositories/
+
+		[mariadb]
+		name = MariaDB
+		baseurl = http://yum.mariadb.org/10.1/centos7-amd64
+		gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+		gpgcheck=1
+
+		- yum install MariaDB-server MariaDB-client
+
+2. mysql 언어셋 및 시간 설정
+	- vim /etc/my.cnf
+	- (아래내용 작성후 저장)
+
+		[mysqld]
+		#master master slave 설정시에만 master에 적용
+		server-id         = 15
+		log-bin           = binary_log
+		sync_binlog       = 1
+		binlog_cache_size = 5M
+		max_binlog_size   = 512M
+		expire_logs_days  = 14
+		log-bin-trust-function-creators = 1
+		binlog_format     = mixed
+	
+		#slave master slave 설정시에만 slave에 적용
+		server-id         = 16
+		relay-log         = relay_log
+		relay-log_purge   = TRUE
+		read_only
+
+		#slow log
+		slow_query_log = 1
+		slow_query_log_file = /var/log/mariadb/mariadb-slow.log
+		long_query_time = 1
+		log_slow_rate_limit = 1
+		log_slow_verbosity = query_plan
+		log_slow_admin_statements
+
+		event_scheduler = ON
+
+		character_set_server=utf8
+		collation_server=utf8_general_ci
+		init_connect=set collation_connection=utf8_general_ci
+		init_connect=set names utf8
+		character-set-server=utf8
+		character-set-client-handshake = TRUE
+		interactive_timeout=315360000
+		wait_timeout=315360000
+		max_connections = 1024
+
+		transaction_isolation = READ-COMMITTED
+
+		log-error=/var/log/mariadb/mariadb-error.log
+
+		[mysqldump]
+		default-character-set = utf8
+
+		[mysql]
+		default-character-set = utf8
+
+		[mysqld_safe]
+		log-error=/var/log/mariadb/mariadb.log
+		pid-file=/var/run/mariadb/mariadb.pid
+
+	- mkdir /var/log/mariadb
+	- chown mysql.mysql /var/log/mariadb
+
+3. mysql 계정 설정 관련 명령어
+	- mysql -u root -p;
+	- root 패스워드 변경
+		= use mysql;
+		= update user set password=password('password') where user='root';
+		= flush privileges;
+		
+	- database 생성 및 계정 설정
+		= CREATE DATABASE database;
+		= GRANT ALL PRIVILEGES ON database.* TO dev@localhost IDENTIFIED BY 'password';
+		
+	- 읽기 전용 계정 설정
+		= CREATE USER readonlyuser@localhost IDENTIFIED BY 'password'; 
+		= GRANT SELECT ON database.* TO readonlyuser@localhost;
+		
+	- 계정 삭제 
+		= DLETE FROM USER WHERE USER='userid' and Host='%';
+		= drop user userid@localhost;
+		= flush privileges;
+
+	- mysql 복제 계정 생성
+		= show master status;
+		= CREATE USER 'userid'@'%' IDENTIFIED BY 'password';
+		= GRANT REPLICATION SLAVE ON *.* TO 'userid'@'%';
+		= show master status;
+
+	- master mysql 을 덤프
+		= mysqldump -u root -p --opt --single-transaction --hex-blob --master-data=2 --routines --triggers --all-databases > master.sql
+
+	- master.sql을 슬레이브 서버로 복사
+		= scp 192.168.0.100:/path/master.sql ./
+		= master.sql을 열어서 아래와 비슷한 문장을 찾는다
+		= -- CHANGE MASTER TO MASTER_LOG_FILE='binary_log.000001', MASTER_LOG_POS=5497;
+
+	- slave mysql root로 slave 설정
+		= user mysql;
+		= SOURCE /path/master_data.sql;
+		= CHANGE MASTER TO MASTER_LOG_FILE='binary_log.000001', MASTER_LOG_POS=5497, master_host='192.168.0.100', master_port=3306, master_user='userid', master_password='password';
+		= show slave status\g;
+		= start slave;
+		= netstat -an|grep 3306
+
+	- slave reset
+		= RESET SLAVE;
+		= CHANGE MASTER TO MASTER_LOG_FILE=binary_log.000019, MASTER_LOG_POS=15172, master_host='192.168.0.100', master_port=3306, master_user='userid', master_password='password';
+		= START SLAVE;
+
+4. mysql 서비스 자동 재시작
+	- systemctl enable mariadb
+	- systemctl status mariadb

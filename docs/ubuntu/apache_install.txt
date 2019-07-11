@@ -1,0 +1,138 @@
+1. apache2 설치 및 확인
+	- apt-get install apache2 libapache2-mod-security2
+	- ifconfig enp3s0 | grep inet | awk '{ print $2 }'
+
+2. apache 설정
+
+	- vim /etc/apache2/sites-available/sitename.conf
+	- (아래 내용 작성)
+
+		<VirtualHost *:80>
+			DocumentRoot /path/
+			ServerName domain
+			ServerAlias domain
+
+			#RewriteEngine on
+			#RewriteRule "^/?(.*)"      "https://%{HTTP_HOST}/$1" [R=301]
+
+			DirectoryIndex index.php index.html
+			<Directory /path/>
+				Options MultiViews
+				Order allow,deny
+				Allow from all
+				Require all granted
+				AllowOverride all
+			</Directory>
+
+			#ErrorLog ${APACHE_LOG_DIR}/error-sitename.log
+			#CustomLog ${APACHE_LOG_DIR}/access-sitename.log
+
+		</VirtualHost>
+
+	- cd /etc/apache2/sites-enabled
+	- ln -s ../sites-abailable/sitename.conf
+
+3. mod-security2 설정 변경
+	- cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+	- vim /etc/modsecurity/modsecurity.conf
+	- SecRuleEngine On
+	- cd /usr/share
+	- mv modsecurity-crs/ modsecurity-crs_20190710
+	- cd ~
+	- git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git
+	- cp -r owasp-modsecurity-crs/ /usr/share/modsecurity-crs
+	- cd /usr/share/modsecurity-crs
+	- cp crs-setup.conf.example crs-setup.conf
+	- cd /etc/apache2/mods-available
+	- vim security2.conf
+	- #IncludeOptional /usr/share/modsecurity-crs/owasp-crs.load
+	- IncludeOptional /usr/share/modesecurity-crs/*.conf
+	- IncludeOptional /usr/share/modesecurity-crs/rules/*.conf
+	- service apache2 restart
+
+4. 참고 사항
+
+		<VirtualHost *:80>
+			ServerName www.sobi.tips
+			# ServerAlias sobi.tips
+			DocumentRoot /var/www/html/
+			ErrorLog ${APACHE_LOG_DIR}/error-www.sobi.tips.log
+			CustomLog ${APACHE_LOG_DIR}/access-www.sobi.tips.log combined
+			Redirect / https://www.sobi.tips/
+		</VirtualHost>
+
+		<Directory /var/www/html/>
+				Options FollowSymLinks MultiViews
+				AllowOverride All
+				Order allow,deny
+				allow from all
+
+				Deny from 206.217.138.221
+
+		# BEGIN WordPress Permalink
+		<IfModule mod_rewrite.c>
+		RewriteEngine On
+		RewriteBase /
+		RewriteRule ^index\.php$ - [L]
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule . /index.php [L]
+		</IfModule>
+		# END WordPress Permalink
+
+		# 주요 파일 형식들 캐시 설정
+		<IfModule mod_expires.c>
+		  ExpiresActive On
+		  ExpiresDefault "access plus 1 month"
+		  ExpiresByType image/png "access plus 1 month"
+		  ExpiresByType image/jpg "access plus 1 month"
+		  ExpiresByType image/gif "access plus 1 month"
+		  ExpiresByType text/javascript "access plus 1 month"
+		  ExpiresByType text/x-javascript "access plus 1 month"
+		  ExpiresByType application/javascript "access plus 1 month"
+		  ExpiresByType application/x-javascript "access plus 1 month"
+		</IfModule>
+
+		# GZip 설정
+		<IfModule mod_deflate.c>
+		  <IfModule mod_filter.c>
+			# these are known to be safe with MSIE 6
+			  AddOutputFilterByType DEFLATE text/html text/plain text/xml
+ 
+			# everything else may cause problems with MSIE 6
+			  AddOutputFilterByType DEFLATE text/css
+			  AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript
+			  AddOutputFilterByType DEFLATE application/rss+xml
+			  AddOutputFilterByType DEFLATE application/xml
+		  </IfModule>
+		</IfModule>
+
+		</Directory>
+
+
+		# 웹링크용 디렉토리 : 목록 오픈
+		<Directory /var/www/kkk/>
+		Options Indexes
+		Require all granted
+		</Directory>
+
+
+		# deny file, folder start with dot
+		<DirectoryMatch "^\.|\/\.">
+			Require all denied
+		</DirectoryMatch>
+  
+		# deny (log file, binary, certificate, shell script, sql dump file) access.
+		<FilesMatch "\.(?i:log|binary|pem|enc|crt|conf|cnf|sql|sh|key|yml|lock|gitignore)$">
+			Require all denied
+		</FilesMatch>
+  
+		# deny access.
+		<FilesMatch "(?i:composer\.json|contributing\.md|license\.txt|readme\.rst|readme\.md|readme\.txt|copyright|artisan|gulpfile\.js|package\.json|phpunit\.xml|access_log|error_log|gruntfile\.js|config)$">
+			Require all denied
+		</FilesMatch>
+ 
+		# Allow Lets Encrypt Domain Validation Program
+		<DirectoryMatch "\.well-known/acme-challenge/">
+			Require all granted
+		</DirectoryMatch>

@@ -1,0 +1,8 @@
+1. ethereum 설치
+	- apt-get install golang
+	- wget https://github.com/ethereum/go-ethereum/archive/v1.8.27.tar.gz (사용자 계정)
+	- tar -zxvf v1.8.27.tar.gz (사용자 계정)
+	- make all (root)
+
+3. ethereum 실행
+	- nohup /path/go-ethereum/build/bin/geth --syncmode "fast" --cache "4196" --rpc --rpcapi "db,eth,net,web3,account,personal" &
