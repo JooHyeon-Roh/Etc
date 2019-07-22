@@ -1,75 +1,75 @@
-ubuntu ¼³Ä¡½Ã ÆĞÅ°Áö ¼³Ä¡ ¹× ¼³Á¤
+ubuntu ì„¤ì¹˜ì‹œ íŒ¨í‚¤ì§€ ì„¤ì¹˜ ë° ì„¤ì •
 
-1. root ÆĞ½º¿öµå º¯°æ
+1. root íŒ¨ìŠ¤ì›Œë“œ ë³€ê²½
 	- passwd root
 	- password
 	- password check
 
-2. »ç¿ëÀÚ °èÁ¤ »ı¼º ¹× ps ¼³Á¤
+2. ì‚¬ìš©ì ê³„ì • ìƒì„± ë° ps ì„¤ì •
 	- adduser userid
 	- passwd userid
 	- password
 	- password check
 
-3. shell »ö»ó º¯°æ(ÇÏ³ª¸¸ »ç¿ë)
+3. shell ìƒ‰ìƒ ë³€ê²½(í•˜ë‚˜ë§Œ ì‚¬ìš©)
 	- vim .bashrc
 	- PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\h:\[\e[31;1m\]\w:> \[\e[0m\]"
     - PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '
 
-4. ssh Á¢¼ÓÀ» À§ÇÑ ÆĞÅ°Áö ¼³Ä¡
+4. ssh ì ‘ì†ì„ ìœ„í•œ íŒ¨í‚¤ì§€ ì„¤ì¹˜
 	- apt-get install ssh
 
-5. ifconfig È®ÀÎÀ» À§ÇÑ ÆĞÅ°Áö ¼³Ä¡
+5. ifconfig í™•ì¸ì„ ìœ„í•œ íŒ¨í‚¤ì§€ ì„¤ì¹˜
 	- apt-get install net-tools
 
-6. °¢Á¾ ÆĞÅ°Áö ¼³Ä¡
+6. ê°ì¢… íŒ¨í‚¤ì§€ ì„¤ì¹˜
 	- add-apt-repository ppa:ubuntu-toolchain-r/test
 	- apt-get update
 	- apt-get install vim curl htop gcc-8 g++-8 gcc-9 g++-9 libtool bzip2 zip unzip rsync wget git cmake make autoconf automake libevent-2.1-6 libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev libncurses5-dev libncursesw5-dev build-essential xz-utils libstdc++-8-dev libkeyutils-dev libstdc++-9-dev net-tools
 
-7. clang-8 ¼³Ä¡½Ã llvm7 ¹Ì»ç¿ë »èÁ¦
+7. clang ì„¤ì¹˜ì‹œ llvm7 ë¯¸ì‚¬ìš© ì‚­ì œ
 	- git clone https://github.com/llvm/llvm-project.git
 	- cd llvm-project
 	- mkdir build
 	- cd build
-	- cmake -DLLVM_ENABLE_PROJECTS='clang;libcxx;libcxxabi;liblink;libstdc++;' -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
+	- cmake -DLLVM_ENABLE_PROJECTS='clang;libcxx;libcxxabi;liblink;libstdc++;' -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
 	- make
 	- make install
 
-	ÄÄÆÄÀÏ ¿É¼Ç
+	ì»´íŒŒì¼ ì˜µì…˜
 	-Wthread-safety
 	-stdlib=libc++
 
 	- apt-get autoremove libllvm7
 
-8. sudo ±ÇÇÑ »èÁ¦
+8. sudo ê¶Œí•œ ì‚­ì œ
 	- grep "sudo" /etc/group
 	- sudo deluser brainboot sudo
 
-9.  °øÀ¯  ¸Ş¸ğ¸®  º¸¾È
-	1)  °øÀ¯  ¸Ş¸ğ¸®¿¡  setuid  ±ÇÇÑ  ¹×  ¸Ş¸ğ¸®  ½ÇÇà  ±ÇÇÑ  Á¦°Å
+9.  ê³µìœ   ë©”ëª¨ë¦¬  ë³´ì•ˆ
+	1)  ê³µìœ   ë©”ëª¨ë¦¬ì—  setuid  ê¶Œí•œ  ë°  ë©”ëª¨ë¦¬  ì‹¤í–‰  ê¶Œí•œ  ì œê±°
 
 	 #sudo vi /etc/fastab
 
 	 tmpfs /dev/shm	tmpfs	defaults,noexec,nosuid	0	0
 
 
-* ÇÊ¿ä¿¡ ÀÇÇÑ ¼³Á¤
+* í•„ìš”ì— ì˜í•œ ì„¤ì •
 
-		ºÒÇÊ¿äÇÑ  Æ÷Æ®  È®ÀÎ  ¹×  Â÷´Ü
+		ë¶ˆí•„ìš”í•œ  í¬íŠ¸  í™•ì¸  ë°  ì°¨ë‹¨
 
-		1)  NMAPÀ¸·Î  PORT  SCANNING
+		1)  NMAPìœ¼ë¡œ  PORT  SCANNING
 		#sudo  apt-get  install  nmap
 		#sudo  nmap -v  -sT  localhost
-		#sudo  ufw  deny <ºÒÇÊ¿äÇÑ  Æ÷Æ®>
+		#sudo  ufw  deny <ë¶ˆí•„ìš”í•œ  í¬íŠ¸>
 
-		½Ã½ºÅÛ  º¸¾È  ÀÎÁ¤
-		1)  Tiger  ¸¦  ÀÌ¿ëÇÑ  ½Ã½ºÅÛ  º¸¾È  ÀÎÁõ
+		ì‹œìŠ¤í…œ  ë³´ì•ˆ  ì¸ì •
+		1)  Tiger  ë¥¼  ì´ìš©í•œ  ì‹œìŠ¤í…œ  ë³´ì•ˆ  ì¸ì¦
 		#sudo  apt-get  install  tiger
 		#sudo  tiger
 		#sudo  less /var/log/tiger/security.report.*
 
-		2)  ÇØÄ¿°¡  ¼û°Ü  ³õÀº  ·çÆ®Å¶  Å½Áö
+		2)  í•´ì»¤ê°€  ìˆ¨ê²¨  ë†“ì€  ë£¨íŠ¸í‚·  íƒì§€
 		#sudo  apt-get  install  rkhunter  chkrootkit
 		#sudo  chkrootkit
 		#sudo  rkhunter --update
@@ -77,11 +77,11 @@ ubuntu ¼³Ä¡½Ã ÆĞÅ°Áö ¼³Ä¡ ¹× ¼³Á¤
 		#sudo  rkhunter --check
 
 
-		sysctl  ¼³Á¤À¸·Î  ÀÎÇÑ  ³×Æ®¿öÅ©  º¸¾È
+		sysctl  ì„¤ì •ìœ¼ë¡œ  ì¸í•œ  ë„¤íŠ¸ì›Œí¬  ë³´ì•ˆ
 
-		1)  IPSpoofing  °ø°İ  ´ëºñ
+		1)  IPSpoofing  ê³µê²©  ëŒ€ë¹„
 		#sudo  vi/etc/sysctl.conf
-		...................¾Æ·¡  ¶óÀÎÀ»  Ãß°¡...
+		...................ì•„ë˜  ë¼ì¸ì„  ì¶”ê°€...
 		#IP  Spoofing  protection
 		net.ipv4.conf.all.rp_filter = 1
 		net.ipv4.conf.default.rp_filter = 1
@@ -119,14 +119,14 @@ ubuntu ¼³Ä¡½Ã ÆĞÅ°Áö ¼³Ä¡ ¹× ¼³Á¤
 		:wq!
 		.............................................
 
-		#sudo sysctl -p  //Àç·Îµå
+		#sudo sysctl -p  //ì¬ë¡œë“œ
 
-		ÃâÃ³: https://luyin.tistory.com/336 [Luyin]
+		ì¶œì²˜: https://luyin.tistory.com/336 [Luyin]
 
 		
-		- root login Â÷´Ü
+		- root login ì°¨ë‹¨
 			PermitRootLogin no
-			PermitRootLogin forced-commands-only (root ·Î±×ÀÎÀ» Çã¿ëÇÒ °æ¿ì ¹İµå½Ã ¾ÏÈ£°¡ ¾Æ´Ñ °ø°³Å° ¹æ½ÄÀ¸·Î Çã¿ëÇØ¾ß ÇÕ´Ï´Ù.)
+			PermitRootLogin forced-commands-only (root ë¡œê·¸ì¸ì„ í—ˆìš©í•  ê²½ìš° ë°˜ë“œì‹œ ì•”í˜¸ê°€ ì•„ë‹Œ ê³µê°œí‚¤ ë°©ì‹ìœ¼ë¡œ í—ˆìš©í•´ì•¼ í•©ë‹ˆë‹¤.)
 			UsePrivilegeSeparation yes
 			PermitEmptyPasswords no
 			MaxAuthTries 5
@@ -143,7 +143,7 @@ ubuntu ¼³Ä¡½Ã ÆĞÅ°Áö ¼³Ä¡ ¹× ¼³Á¤
 			systemctl restart ssh
 
 			
-		* Âü°í
+		* ì°¸ê³ 
 			Port 3022
 			Protocal 2
 			HostKey /etc/ssh/ssh_host_rsa_key
