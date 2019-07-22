@@ -6,7 +6,7 @@
 	- mysql_secure_installation
 	- root 패스워드가 없어 엔터로 넘긴 후 root 패스워드를 설정해준다
 	- Remove anonymous users? [Y/n]  y (익명의 사용자 제한)
-	- Disallow root login remotely? [Y/n]  n (원격에서 root 로그인 허용)
+	- Disallow root login remotely? [Y/n]  y (원격에서 root 로그인 허용)
 	- Remove test database and access to it? [Y/n] y (테스트 데이터 베이스 생성) 
 	- Reload privilege tables now? [Y/n]  y (지금까지 설정한 내용 적용)
 

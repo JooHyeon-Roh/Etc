@@ -23,9 +23,23 @@ ubuntu 설치시 패키지 설치 및 설정
 	- apt-get install net-tools
 
 6. 각종 패키지 설치
-	- apt-get install vim curl htop gcc-8 g++-8 clang-8 cpp-8 libtool bzip2 zip unzip rsync wget git make autoconf automake libevent-2.1-6 libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev 
+	- add-apt-repository ppa:ubuntu-toolchain-r/test
+	- apt-get update
+	- apt-get install vim curl htop gcc-8 g++-8 gcc-9 g++-9 libtool bzip2 zip unzip rsync wget git cmake make autoconf automake libevent-2.1-6 libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev libncurses5-dev libncursesw5-dev build-essential xz-utils libstdc++-8-dev libkeyutils-dev libstdc++-9-dev net-tools
 
 7. clang-8 설치시 llvm7 미사용 삭제
+	- git clone https://github.com/llvm/llvm-project.git
+	- cd llvm-project
+	- mkdir build
+	- cd build
+	- cmake -DLLVM_ENABLE_PROJECTS='clang;libcxx;libcxxabi;liblink;libstdc++;' -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm
+	- make
+	- make install
+
+	컴파일 옵션
+	-Wthread-safety
+	-stdlib=libc++
+
 	- apt-get autoremove libllvm7
 
 8. sudo 권한 삭제

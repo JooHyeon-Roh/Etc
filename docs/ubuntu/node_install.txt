@@ -1,5 +1,5 @@
 1. nodejs 설치
-	- curl -sL https://deb.nodesource.com/setup_9.x | bash -
+	- curl -sL https://deb.nodesource.com/setup_10.x | bash -
 	- apt-get install nodejs
 
 2. npm 패키지 설치
@@ -7,8 +7,37 @@
 	- npm init
 
 3. pm2 실행 및 확인
+
+	- pm2 install pm2-logrotate
+
+	- pm2 set pm2-logrotate:retain 'none'
+	- pm2 set pm2-logrotate:compress true 
+	- pm2 set pm2-logrotate:dateFormat YYYY-MM-DD_HH-mm-ss 
+	- pm2 set pm2-logrotate:max_size 10G 
+	- pm2 set pm2-logrotate:rotateInterval '* */4 * * * ' 
+	- pm2 set pm2-logrotate:rotateModule true 
+	- pm2 set pm2-logrotate:workerInterval 30  
+
 	- pm2 start main.js --name "node" (기본)
 	- pm2 start main.js --name "node" -i 8 -o ./logs/node.log (클러스터 & 로그)
+
+	config 파일을 이용한 실행
+	- vim node.config.js
+
+		module.exports = {
+			apps: [{
+					name: "node",
+					script: "./main.js",
+					error_file: "../logs/node_err",
+					out_file: "../logs/node_out",
+					//instances: 8,
+					//exec_mode: "cluster",
+					combine_logs: "false",
+					log_date_format: "YYYY-MM-DD_HH-mm-ss"
+				}]
+		}
+
+	- pm2 start node.config.js
 	- pm2 start id
 	- pm2 restart id || all
 	- pm2 list
