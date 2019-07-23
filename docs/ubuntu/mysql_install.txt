@@ -7,6 +7,8 @@
 	- add-apt-repository "deb [arch=amd64,arm64,ppc64el] http://mariadb.mirror.liquidtelecom.com/repo/10.4/ubuntu $(lsb_release -cs) main"
 	- apt update
 	- apt-get install mariadb-server mariadb-client
+	- mysql_upgrade -u root -p
+	- service mysql restart
 	- systemctl status mariadb
 
 2. mariadb 보안설정
