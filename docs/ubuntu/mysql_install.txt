@@ -59,6 +59,7 @@
 		interactive_timeout=315360000
 		wait_timeout=315360000
 		max_connections = 1024
+		max_allowed_packet=16M
 
 		transaction_isolation = READ-COMMITTED
 
