@@ -1,32 +1,33 @@
-1. openssl ¼³Ä¡
+1. openssl ì„¤ì¹˜
+	- apt-get install libssl-dev openssl
 	- cd /home/path
 	- mkdir download
 	- cd download
 	- wget https://www.openssl.org/source/openssl-1.0.1l.tar.gz
 	- tar -xzvf openssl-1.0.1l.tar.gz
 	- cd openssl-1.0.1l
-	- ./config --prefix=/usr/local shared enable-ec enable-ecdh enable-ecdsa // root °èÁ¤À¸·Î ½ÇÇà
-	- make // root °èÁ¤À¸·Î ½ÇÇà
-	- make install // root °èÁ¤À¸·Î ½ÇÇà
+	- ./config --prefix=/usr/local shared enable-ec enable-ecdh enable-ecdsa // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+	- make // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+	- make install // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
 
-2. Berkeley DB4.8 ¼³Ä¡
+2. Berkeley DB4.8 ì„¤ì¹˜
 	- add-apt-repository ppa:bitcoin/bitcoin
 	- apt-get update
 	- apt-get install libdb4.8-dev libdb4.8++-dev
 
-3. bitcoin ¼³Ä¡
+3. bitcoin ì„¤ì¹˜
 	- mkdir ~/bitcoin
 	- cd ~/download
 	- git clone https://github.com/bitcoin/bitcoin.git
 	- cd bitcoin
 	- patch -p0 < bitcoin_brainboot.patch
 	- git diff
-	- ./autogen.sh // root °èÁ¤À¸·Î ½ÇÇà
-	- ./configure --prefix=/home/path/bitcoin --with-gui=no --without-qt // root °èÁ¤À¸·Î ½ÇÇà
-	- make // root °èÁ¤À¸·Î ½ÇÇà
-	- make install // root °èÁ¤À¸·Î ½ÇÇà
+	- ./autogen.sh // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+	- ./configure --prefix=/home/path/bitcoin --with-gui=no --without-qt // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+	- make // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
+	- make install // root ê³„ì •ìœ¼ë¡œ ì‹¤í–‰
 
-4. bitcoin conf ÀÛ¼º
+4. bitcoin conf ìž‘ì„±
 	- mkdir .bitcoin
 	- cd ~/.bitcoin
 	- vim bitcoin.conf
@@ -46,5 +47,5 @@
 		rpcuser=userid
 		rpcpassword=password
 
-5. bitcoin ½ÇÇà
+5. bitcoin ì‹¤í–‰
 	- /path/bitcoin/bin/bitcoind --daemon
