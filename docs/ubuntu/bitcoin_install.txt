@@ -1,5 +1,5 @@
 1. openssl 설치
-	- apt-get install libssl-dev openssl
+	- apt-get install autotools-dev libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-test-dev libboost-thread-dev pkg-config libboost-all-dev openssl bsdmainutils
 	- cd /home/path
 	- mkdir download
 	- cd download
