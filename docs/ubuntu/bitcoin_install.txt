@@ -1,14 +1,5 @@
 1. openssl 설치
 	- apt-get install autotools-dev libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-test-dev libboost-thread-dev pkg-config libboost-all-dev openssl bsdmainutils
-	- cd /home/path
-	- mkdir download
-	- cd download
-	- wget https://www.openssl.org/source/openssl-1.0.1l.tar.gz
-	- tar -xzvf openssl-1.0.1l.tar.gz
-	- cd openssl-1.0.1l
-	- ./config --prefix=/usr/local shared enable-ec enable-ecdh enable-ecdsa // root 계정으로 실행
-	- make // root 계정으로 실행
-	- make install // root 계정으로 실행
 
 2. Berkeley DB4.8 설치
 	- add-apt-repository ppa:bitcoin/bitcoin
