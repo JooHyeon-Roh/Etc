@@ -1,1 +1,10 @@
 
+[nginx 설치]
+	- wget http://nginx.org/keys/nginx_signing.key
+	- apt-key add nginx_signing.key
+	- vim /etc/apt/sources.list.d/nginx.list
+		deb [arch=amd64] http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+		deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
+
+	- apt-get update
+	- apt-get install nginx
