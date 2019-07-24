@@ -1,11 +1,11 @@
-1. apache2 ¼³Ä¡ ¹× È®ÀÎ
-	- apt-get install apache2 libapache2-mod-security2
+1. apache2 ì„¤ì¹˜ ë° í™•ì¸
+	- apt-get install apache2 libapache2-mod-security2 mod_ssl openssl
 	- ifconfig enp3s0 | grep inet | awk '{ print $2 }'
 
-2. apache ¼³Á¤
+2. apache ì„¤ì •
 
 	- vim /etc/apache2/sites-available/sitename.conf
-	- (¾Æ·¡ ³»¿ë ÀÛ¼º)
+	- (ì•„ë˜ ë‚´ìš© ì‘ì„±)
 
 		<VirtualHost *:80>
 			DocumentRoot /path/
@@ -32,7 +32,7 @@
 	- cd /etc/apache2/sites-enabled
 	- ln -s ../sites-abailable/sitename.conf
 
-3. mod-security2 ¼³Á¤ º¯°æ
+3. mod-security2 ì„¤ì • ë³€ê²½
 	- cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
 	- vim /etc/modsecurity/modsecurity.conf
 	- SecRuleEngine On
@@ -50,7 +50,7 @@
 	- IncludeOptional /usr/share/modesecurity-crs/rules/*.conf
 	- service apache2 restart
 
-4. Âü°í »çÇ×
+4. ì°¸ê³  ì‚¬í•­
 
 		<VirtualHost *:80>
 			ServerName www.sobi.tips
@@ -80,7 +80,7 @@
 		</IfModule>
 		# END WordPress Permalink
 
-		# ÁÖ¿ä ÆÄÀÏ Çü½Äµé Ä³½Ã ¼³Á¤
+		# ì£¼ìš” íŒŒì¼ í˜•ì‹ë“¤ ìºì‹œ ì„¤ì •
 		<IfModule mod_expires.c>
 		  ExpiresActive On
 		  ExpiresDefault "access plus 1 month"
@@ -93,7 +93,7 @@
 		  ExpiresByType application/x-javascript "access plus 1 month"
 		</IfModule>
 
-		# GZip ¼³Á¤
+		# GZip ì„¤ì •
 		<IfModule mod_deflate.c>
 		  <IfModule mod_filter.c>
 			# these are known to be safe with MSIE 6
@@ -110,7 +110,7 @@
 		</Directory>
 
 
-		# À¥¸µÅ©¿ë µğ·ºÅä¸® : ¸ñ·Ï ¿ÀÇÂ
+		# ì›¹ë§í¬ìš© ë””ë ‰í† ë¦¬ : ëª©ë¡ ì˜¤í”ˆ
 		<Directory /var/www/kkk/>
 		Options Indexes
 		Require all granted
