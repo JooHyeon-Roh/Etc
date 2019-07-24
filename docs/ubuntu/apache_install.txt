@@ -50,6 +50,13 @@
 	- IncludeOptional /usr/share/modesecurity-crs/rules/*.conf
 	- service apache2 restart
 
+5. ssl 모듈 활성화
+	- a2enmod ssl
+	- vim /etc/apache2/sites-available/sitename.conf
+		SSLEngine on 
+		SSLCertificateFile /etc/apache2/ssl/server.crt 
+		SSLCertificateKeyFile /etc/apache2/ssl/server.key
+	
 4. 참고 사항
 
 		<VirtualHost *:80>
