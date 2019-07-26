@@ -1,12 +1,12 @@
-1. nodejs ¼³Ä¡
+1. nodejs ì„¤ì¹˜
 	- curl -sL https://deb.nodesource.com/setup_10.x | bash -
 	- apt-get install nodejs
 
-2. npm ÆĞÅ°Áö ¼³Ä¡
+2. npm íŒ¨í‚¤ì§€ ì„¤ì¹˜
 	- npm install pm2 node-gyp -g
 	- npm init
 
-3. pm2 ½ÇÇà ¹× È®ÀÎ
+3. pm2 ì‹¤í–‰ ë° í™•ì¸
 
 	- pm2 install pm2-logrotate
 
@@ -14,14 +14,14 @@
 	- pm2 set pm2-logrotate:compress true 
 	- pm2 set pm2-logrotate:dateFormat YYYY-MM-DD_HH-mm-ss 
 	- pm2 set pm2-logrotate:max_size 10G 
-	- pm2 set pm2-logrotate:rotateInterval '* */4 * * * ' 
+	- pm2 set pm2-logrotate:rotateInterval '0 */4 * * * ' 
 	- pm2 set pm2-logrotate:rotateModule true 
 	- pm2 set pm2-logrotate:workerInterval 30  
 
-	- pm2 start main.js --name "node" (±âº»)
-	- pm2 start main.js --name "node" -i 8 -o ./logs/node.log (Å¬·¯½ºÅÍ & ·Î±×)
+	- pm2 start main.js --name "node" (ê¸°ë³¸)
+	- pm2 start main.js --name "node" -i 8 -o ./logs/node.log (í´ëŸ¬ìŠ¤í„° & ë¡œê·¸)
 
-	config ÆÄÀÏÀ» ÀÌ¿ëÇÑ ½ÇÇà
+	config íŒŒì¼ì„ ì´ìš©í•œ ì‹¤í–‰
 	- vim node.config.js
 
 		module.exports = {
