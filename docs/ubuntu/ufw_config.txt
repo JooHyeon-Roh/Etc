@@ -1,4 +1,4 @@
-1. ufw ¹æÈ­º® Á¤Ã¥ ¼³Á¤
+1. ufw ë°©í™”ë²½ ì •ì±… ì„¤ì •
 	- ufw enable 
 	- ufw status
 	- ufw status verbose
@@ -7,19 +7,21 @@
 	- ufw allow from 192.168.0.100 to any port 22 proto tcp 
 	- ufw allow 80/tcp 
 	- ufw allow 3306/tcp
+	- ufw allow 6000:6007/tcp
+	- ufw allow 6000:6007/udp
 	- ufw delete deny 22/tcp
 	- ufw logging on
 	- ufw logging off
 
-2. ping (icmp) Çã¿ë/°ÅºÎ
+2. ping (icmp) í—ˆìš©/ê±°ë¶€
 	- vim /etc/ufw/before.rules
 
 		 # ok icmp codes
-		-A ufw-before-input -p icmp --icmp-type destination-unreachable -j ACCEPT  ¡æ DROPÀ¸·Î º¯°æ
-		-A ufw-before-input -p icmp --icmp-type source-quench -j ACCEPT  ¡æ DROPÀ¸·Î º¯°æ
-		-A ufw-before-input -p icmp --icmp-type time-exceeded -j ACCEPT  ¡æ DROPÀ¸·Î º¯°æ
-		-A ufw-before-input -p icmp --icmp-type parameter-problem -j ACCEPT  ¡æ DROPÀ¸·Î º¯°æ
-		-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT  ¡æ DROPÀ¸·Î º¯°æ
+		-A ufw-before-input -p icmp --icmp-type destination-unreachable -j ACCEPT  â†’ DROPìœ¼ë¡œ ë³€ê²½
+		-A ufw-before-input -p icmp --icmp-type source-quench -j ACCEPT  â†’ DROPìœ¼ë¡œ ë³€ê²½
+		-A ufw-before-input -p icmp --icmp-type time-exceeded -j ACCEPT  â†’ DROPìœ¼ë¡œ ë³€ê²½
+		-A ufw-before-input -p icmp --icmp-type parameter-problem -j ACCEPT  â†’ DROPìœ¼ë¡œ ë³€ê²½
+		-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT  â†’ DROPìœ¼ë¡œ ë³€ê²½
 
 		-A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP
 		-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
