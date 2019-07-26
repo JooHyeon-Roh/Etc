@@ -13,7 +13,7 @@ ubuntu 설치시 패키지 설치 및 설정
 	디렉토리 권한 설정(root 계정)
 		- cd /home/
 		- chmod 750 ./*
-		- chown -R dev_web:www-data dev_web (웹 사용자 계정)
+		- chown dev_web:www-data dev_web (웹 사용자 계정)
 
 3. shell 색상 변경(하나만 사용)
 	- vim .bashrc
