@@ -56,6 +56,11 @@ ubuntu 설치시 패키지 설치 및 설정
 	 #sudo vi /etc/fastab
 
 	 tmpfs /dev/shm	tmpfs	defaults,noexec,nosuid	0	0
+	 
+	 공유메모리 확인 및 삭제
+	 ipcs
+	 ipcrm -M id
+
 
 
 * 필요에 의한 설정
