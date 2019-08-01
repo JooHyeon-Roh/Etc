@@ -1,5 +1,5 @@
 1. openssl 설치
-	- apt-get install autotools-dev libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-test-dev libboost-thread-dev pkg-config libboost-all-dev openssl bsdmainutils
+	- apt-get install autotools-dev libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-test-dev libboost-thread-dev pkg-config libboost-all-dev openssl bsdmainutils autoconf
 
 2. Berkeley DB4.8 설치
 	- add-apt-repository ppa:bitcoin/bitcoin
