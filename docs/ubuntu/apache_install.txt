@@ -28,6 +28,33 @@
 			#CustomLog ${APACHE_LOG_DIR}/access-sitename.log
 
 		</VirtualHost>
+		
+		<IfModule mod_ssl.c>
+			<VirtualHost *:443>
+					DocumentRoot /path/
+					ServerName ServerName
+					ServerAlias ServerAlias
+
+					SSLEngine on
+
+					SSLCertificateFile      /etc/ssl/certs/.crt
+					SSLCertificateKeyFile   /etc/ssl/private/.key
+
+					DirectoryIndex index.php index.html
+					<Directory /path/>
+							Options MultiViews
+							Order allow,deny
+							Allow from all
+							Require all granted
+							AllowOverride all
+					</Directory>
+
+					ErrorLog ${APACHE_LOG_DIR}/ssl-error.log
+					CustomLog ${APACHE_LOG_DIR}/ssl-access.log combined
+
+			</VirtualHost>
+		</IfModule>
+
 
 	- cd /etc/apache2/sites-enabled
 	- ln -s ../sites-abailable/sitename.conf
