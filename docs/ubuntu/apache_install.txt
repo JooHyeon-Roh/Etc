@@ -56,6 +56,13 @@
 		SSLEngine on 
 		SSLCertificateFile /etc/apache2/ssl/server.crt 
 		SSLCertificateKeyFile /etc/apache2/ssl/server.key
+		
+6. rewrite 모듈 활성화
+	- apachectl configtest
+	- a2enmod rewrite
+	- a2enmod ssl
+	- a2ensite default-ssl
+		
 	
 4. 참고 사항
 
