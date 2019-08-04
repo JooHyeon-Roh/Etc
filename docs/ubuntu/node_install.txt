@@ -26,13 +26,12 @@
 
 		module.exports = {
 			apps: [{
-					name: "node",
+					name: "public_node",
 					script: "./main.js",
-					error_file: "../logs/node_err",
-					out_file: "../logs/node_out",
-					//instances: 8,
-					//exec_mode: "cluster",
-					combine_logs: "false",
+					error_file: "../logs/public_node_err",
+					out_file: "../logs/public_node_out",
+					instances: 8,
+					exec_mode: "cluster",
 					log_date_format: "YYYY-MM-DD_HH-mm-ss"
 				}]
 		}
