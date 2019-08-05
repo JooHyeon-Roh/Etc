@@ -39,6 +39,8 @@
 
 					SSLCertificateFile      /etc/ssl/certs/.crt
 					SSLCertificateKeyFile   /etc/ssl/private/.key
+					SSLCertificateChainFile /etc/ssl/certs/ChainBundle.crt
+					SSLCACertificateFile /etc/ssl/certs/ca-bundle.crt
 
 					DirectoryIndex index.php index.html
 					<Directory /path/>
