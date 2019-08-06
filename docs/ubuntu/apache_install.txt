@@ -28,34 +28,6 @@
 			#CustomLog ${APACHE_LOG_DIR}/access-sitename.log
 
 		</VirtualHost>
-		
-		<IfModule mod_ssl.c>
-			<VirtualHost *:443>
-					DocumentRoot /path/
-					ServerName ServerName
-					ServerAlias ServerAlias
-
-					SSLEngine on
-
-					SSLCertificateFile      /etc/ssl/certs/.crt
-					SSLCertificateKeyFile   /etc/ssl/private/.key
-					SSLCertificateChainFile /etc/ssl/certs/ChainBundle.crt
-					SSLCACertificateFile /etc/ssl/certs/ca-bundle.crt
-
-					DirectoryIndex index.php index.html
-					<Directory /path/>
-							Options MultiViews
-							Order allow,deny
-							Allow from all
-							Require all granted
-							AllowOverride all
-					</Directory>
-
-					ErrorLog ${APACHE_LOG_DIR}/ssl-error.log
-					CustomLog ${APACHE_LOG_DIR}/ssl-access.log combined
-
-			</VirtualHost>
-		</IfModule>
 
 
 	- cd /etc/apache2/sites-enabled
@@ -81,16 +53,51 @@
 
 5. ssl 모듈 활성화
 	- a2enmod ssl
-	- vim /etc/apache2/sites-available/sitename.conf
-		SSLEngine on 
-		SSLCertificateFile /etc/apache2/ssl/server.crt 
-		SSLCertificateKeyFile /etc/apache2/ssl/server.key
+	- vim /etc/apache2/sites-available/default-ssl.conf
+	
+		<IfModule mod_ssl.c>
+			<VirtualHost _default_:443>
+				ServerAdmin user@email
+
+				DocumentRoot /path
+				ServerName domain
+				ServerAlias domain
+
+				ErrorLog ${APACHE_LOG_DIR}/error.log
+				CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+				SSLEngine on
+
+				SSLProtocol all -SSLv3 -SSLv2
+
+				SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:AES128-SHA:AES256-SHA:!RC4:HIGH:!MD5:!aNULL:!EDH
+
+				SSLCertificateFile      /etc/ssl/certs/.crt
+				SSLCertificateKeyFile   /etc/ssl/private/.key
+				SSLCertificateChainFile /etc/ssl/certs/.crt
+				SSLCACertificateFile    /etc/ssl/certs/.crt
+
+				<Directory /path>
+					Options MultiViews
+					Order allow,deny
+					Allow from all
+					Require all granted
+					AllowOverride all
+				</Directory>
+
+				BrowserMatch "MSIE [2-5]" \
+				nokeepalive ssl-unclean-shutdown \
+				downgrade-1.0 force-response-1.0
+			</VirtualHost>
+		</IfModule>
+	
 		
 6. rewrite 모듈 활성화
 	- apachectl configtest
 	- a2enmod rewrite
 	- a2enmod ssl
 	- a2ensite default-ssl
+	- a2dismod ssl
 		
 	
 4. 참고 사항
