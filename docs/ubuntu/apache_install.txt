@@ -74,8 +74,7 @@
 
 				SSLCertificateFile      /etc/ssl/certs/.crt
 				SSLCertificateKeyFile   /etc/ssl/private/.key
-				SSLCertificateChainFile /etc/ssl/certs/.crt
-				SSLCACertificateFile    /etc/ssl/certs/.crt
+				SSLCACertificateFile    /etc/ssl/certs/chain.crt
 
 				<Directory /path>
 					Options MultiViews
@@ -99,8 +98,22 @@
 	- a2ensite default-ssl
 	- a2dismod ssl
 		
+7. ssl 인증서 pfx 추출
+	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nokeys -clcerts -out .crt
+	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nocerts -nodes -out .key
+	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nodes -nokeys -cacerts -out chain.crt
+
+	- mv .key /etc/ssl/private/
+	- mv .crt /etc/ssl/certs/
+	- mv chain.crt /etc/ssl/certs/
+
+	- chmod 664 chain.crt
+	- chmod 664 .crt
+
+	- chmod 640 .key
+	- chown root:ssl-cert .key
 	
-4. 참고 사항
+* 참고 사항
 
 		<VirtualHost *:80>
 			ServerName www.sobi.tips
