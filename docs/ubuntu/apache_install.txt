@@ -99,9 +99,9 @@
 	- a2dismod ssl
 		
 7. ssl 인증서 pfx 추출
-	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nokeys -clcerts -out .crt
-	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nocerts -nodes -out .key
-	- openssl pkcs12 -in Wildcard.coing5.co.kr.pfx -nodes -nokeys -cacerts -out chain.crt
+	- openssl pkcs12 -in .pfx -nokeys -clcerts -out .crt
+	- openssl pkcs12 -in .pfx -nocerts -nodes -out .key
+	- openssl pkcs12 -in .pfx -nodes -nokeys -cacerts -out chain.crt
 
 	- mv .key /etc/ssl/private/
 	- mv .crt /etc/ssl/certs/
