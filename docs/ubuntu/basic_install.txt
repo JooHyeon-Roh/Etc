@@ -61,6 +61,10 @@ ubuntu 설치시 패키지 설치 및 설정
 	 ipcs
 	 ipcrm -M id
 
+10. vim 한글깨짐
+	- vim /etc/vim/vimrc
+		set encoding=utf-8
+		set fileencodings=utf-8,cp949
 
 
 * 필요에 의한 설정
