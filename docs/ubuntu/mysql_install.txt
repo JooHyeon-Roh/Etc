@@ -129,3 +129,20 @@
 		= RESET SLAVE;
 		= CHANGE MASTER TO MASTER_LOG_FILE=binary_log.000019, MASTER_LOG_POS=15172, master_host='192.168.0.100', master_port=3306, master_user='userid', master_password='password';
 		= START SLAVE;
+		
+*참고사항
+	최신버전 mysql 관련 설정 변경
+	MySQL Query Excute failed]-[1365] Error Meassage : Division by 0 발생시
+	
+	strict mode : ERROR_FOR_DIVISION_BY_ZERO enable -> disable로 바꿔야 함
+	vi /etc/mysql/mariadb.cnf
+	[mysqld]
+	sql_mode="IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+	#sql_mode="IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+
+	MariaDB [(none)]> show variables like 'sql_mode';
+	MariaDB [(none)]> set sql_mode='';
+	MariaDB [(none)]> show variables like 'sql_mode';
+	MariaDB [(none)]> set sql_mode='IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+	MariaDB [(none)]> show variables like 'sql_mode';
+
