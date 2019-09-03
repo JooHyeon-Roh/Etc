@@ -143,6 +143,6 @@
 	MariaDB [(none)]> show variables like 'sql_mode';
 	MariaDB [(none)]> set sql_mode='';
 	MariaDB [(none)]> show variables like 'sql_mode';
-	MariaDB [(none)]> set sql_mode='IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+	MariaDB [(none)]> set sql_mode='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 	MariaDB [(none)]> show variables like 'sql_mode';
 
