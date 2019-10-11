@@ -54,5 +54,3 @@
 4. httpd 서비스 자동 재시작
 	- systemctl enable httpd
 	- systemctl status httpd
-	- systemctl enable httpd
-	- systemctl status httpd
