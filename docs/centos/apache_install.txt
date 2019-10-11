@@ -1,13 +1,13 @@
-1. apache ¼³Ä¡
+1. apache ì„¤ì¹˜
 	- rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 	- yum install httpd openssl mod_ssl
 
-2. apache ¼³Á¤
+2. apache ì„¤ì •
 	- vim /etc/httpd/conf/httpd.conf
-	- include /etc/httpd/conf/vhost.conf (Ãß°¡)
+	- include /etc/httpd/conf/vhost.conf (ì¶”ê°€)
 
 	- vim /etc/httpd/conf/vhost.conf
-	- (¾Æ·¡ ³»¿ë ÀÛ¼º)
+	- (ì•„ë˜ ë‚´ìš© ì‘ì„±)
 
 		<VirtualHost *:80>
 			DocumentRoot /path/
@@ -28,9 +28,9 @@
 
 		</VirtualHost>
 
-3. ssl ¼³Á¤
+3. ssl ì„¤ì •
 	- vim /etc/httpd/conf.d/ssl.conf
-	- (¾Æ·¡ ³»¿ë Ãß°¡)
+	- (ì•„ë˜ ë‚´ìš© ì¶”ê°€)
 
 		DocumentRoot "/path"
 		ServerName domain:443
@@ -51,6 +51,8 @@
 			AllowOverride all
 		</Directory>
 
-4. httpd ¼­ºñ½º ÀÚµ¿ Àç½ÃÀÛ
+4. httpd ì„œë¹„ìŠ¤ ìë™ ì¬ì‹œì‘
+	- systemctl enable httpd
+	- systemctl status httpd
 	- systemctl enable httpd
 	- systemctl status httpd
