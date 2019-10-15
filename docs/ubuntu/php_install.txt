@@ -18,6 +18,11 @@
 	- magic_quotes_gpc = On
 
 [nginx php 연동]
+	- vim /etc/php/7.2/fpm/pool.d/www.conf
+		www-data -> nginx 변경
+		
 	- /etc/php/7.2/fpm/php.ini
 		short_open_tag = On 변경
 		date.timezone = Asia/Seoul 변경
+		
+	- service php7.2-fpm restart
