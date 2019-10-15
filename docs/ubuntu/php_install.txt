@@ -16,3 +16,8 @@
 	- register_globals = Off
 	- expose_php = Off
 	- magic_quotes_gpc = On
+
+[nginx php 연동]
+	- /etc/php/7.2/fpm/php.ini
+		short_open_tag = On 변경
+		date.timezone = Asia/Seoul 변경
