@@ -1,14 +1,16 @@
-1. php ¼³Ä¡
+1. php ì„¤ì¹˜
 	- apt-get install libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-mysql php7.2-mbstring php7.2-gd php7.2-xml 
+	- ubuntu nginx ì—°ë™
+		- apt-get install php7.3-fpm composer
 
-2. php ¼³Á¤
+2. php ì„¤ì •
 	- vim /etc/php/7.2/apache2/php.ini
-	- (¾Æ·¡ ³»¿ë º¯°æ)
+	- (ì•„ë˜ ë‚´ìš© ë³€ê²½)
 
-		short_open_tag = On º¯°æ
-		date.timezone = Asia/Seoul º¯°æ
+		short_open_tag = On ë³€ê²½
+		date.timezone = Asia/Seoul ë³€ê²½
 
-3. php º¸¾È ¼³Á¤
+3. php ë³´ì•ˆ ì„¤ì •
 	- vim /etc/php/7.2/apache2/php.ini
 	- disable_functions = exec,system,shell_exec,passthru
 	- register_globals = Off
