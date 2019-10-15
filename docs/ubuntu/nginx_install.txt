@@ -41,4 +41,79 @@
 			root   /usr/share/nginx/html;
 			}
 		}
+		
+		
+		server {
+			charset UTF-8;
+			listen 80;
+			listen [::]:80;
+			server_name 192.168.0.130;
+			root   /usr/share/nginx/html;
+			client_max_body_size 100M;
+
+			location / {
+				root   /home/dev/ajax_test/;
+				index  index.html index.htm;
+			}
+
+			location /koa {
+				add_header 'Access-Control-Allow-Origin' '*';
+				add_header 'Access-Control-Allow-Methods' 'POST, OPTIONS';
+				add_header 'Access-Control-Allow-Headers' 'Accept,X-Requested-With,Content-Type,Origin';
+
+				if ($request_method = 'OPTIONS') {
+					add_header 'Access-Control-Allow-Origin' '*';
+					add_header 'Access-Control-Allow-Headers' 'Accept, Origin, X-Requested-With, Keep-Alive, Content-Type';
+					add_header 'Access-Control-Allow-Methods' 'POST, OPTIONS';
+					add_header 'Content-Type' 'application/json charset=UTF-8';
+					return 204;
+				}
+
+				proxy_pass http://192.168.0.130:3000/;
+				proxy_set_header X-Real-IP $remote_addr;
+				proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				proxy_set_header X-NginX-Proxy true;
+				proxy_ssl_session_reuse off;
+				proxy_set_header Host $http_host;
+				proxy_redirect off;
+			}
+
+			location /koa/upload {
+				add_header 'Access-Control-Allow-Origin' '*';
+
+				proxy_pass http://192.168.0.130:3000/upload;
+				proxy_set_header X-Real-IP $remote_addr;
+				proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				proxy_set_header X-NginX-Proxy true;
+				proxy_ssl_session_reuse off;
+				proxy_set_header Host $http_host;
+				proxy_redirect off;
+			}
+
+			location /koa_admin {
+				add_header 'Access-Control-Allow-Origin' '*';
+				add_header 'Access-Control-Allow-Methods' 'POST, OPTIONS';
+				add_header 'Access-Control-Allow-Headers' 'Accept,X-Requested-With,Content-Type,Origin';
+
+				if ($request_method = 'OPTIONS') {
+					add_header 'Access-Control-Allow-Origin' '*';
+					add_header 'Access-Control-Allow-Headers' 'Accept, Origin, X-Requested-With, Keep-Alive, Content-Type';
+					add_header 'Access-Control-Allow-Methods' 'POST, OPTIONS';
+					add_header 'Content-Type' 'application/json charset=UTF-8';
+					return 204;
+				}
+
+				proxy_pass http://192.168.0.130:4000/;
+				proxy_set_header X-Real-IP $remote_addr;
+				proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				proxy_set_header X-NginX-Proxy true;
+				proxy_ssl_session_reuse off;
+				proxy_set_header Host $http_host;
+				proxy_redirect off;
+			}
+
+			location ~ /\. {
+				deny all;
+			}
+		}
 	- service nginx restart
