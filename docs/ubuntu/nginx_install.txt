@@ -9,6 +9,13 @@
 	- apt-get install nginx
 
 
+[php nginx 연동]
+	- vim /etc/nginx/nginx.conf
+		user  www-data;
+		worker_processes  auto;
+	- 
+
+
 [nginx 설정]
 	- cd /etc/nginx/conf.d
 	- cp default.conf default_20170315
