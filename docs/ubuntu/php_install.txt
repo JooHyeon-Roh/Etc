@@ -26,3 +26,13 @@
 		date.timezone = Asia/Seoul 변경
 		
 	- service php7.2-fpm restart
+
+[swoole 설치]
+	- apt-get install php7.2-dev
+	- cd /usr/bin/
+	- ./pecl install swoole
+	- cd /etc/php/7.2/fpm/
+	- vim php.ini
+		extension=swoole.so
+	- service php7.2-fpm restart
+	
