@@ -35,4 +35,14 @@
 	- vim php.ini
 		extension=swoole.so
 	- service php7.2-fpm restart
+	- cd /etc/php/7.2/mods-available/
+	- vim swoole.ini
+		; configuration for php xml module
+		; priority=20
+		extension=swoole.so
+		
+	- cd /etc/php/7.2/cli/conf.d
+	- ln -s /etc/php/7.2/mods-available/swoole.ini 20-swoole.ini
+	- cd /etc/php/7.2/fpm/conf.d
+	- ln -s /etc/php/7.2/mods-available/swoole.ini 20-swoole.ini
 	
