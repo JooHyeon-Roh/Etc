@@ -64,6 +64,8 @@
 		transaction_isolation = READ-COMMITTED
 
 		log-error=/var/log/mariadb/mariadb-error.log
+		
+		sql_mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
 		[mysqldump]
 		default-character-set = utf8
