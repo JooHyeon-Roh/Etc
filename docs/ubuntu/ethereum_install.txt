@@ -1,8 +1,18 @@
-1. ethereum ¼³Ä¡
+1. ethereum ì„¤ì¹˜
 	- apt-get install golang
-	- wget https://github.com/ethereum/go-ethereum/archive/v1.8.27.tar.gz (»ç¿ëÀÚ °èÁ¤)
-	- tar -zxvf v1.8.27.tar.gz (»ç¿ëÀÚ °èÁ¤)
+	- wget https://github.com/ethereum/go-ethereum/archive/v1.8.27.tar.gz (ì‚¬ìš©ì ê³„ì •)
+	- tar -zxvf v1.8.27.tar.gz (ì‚¬ìš©ì ê³„ì •)
 	- make all (root)
 
-3. ethereum ½ÇÇà
+2. ethereum ì‹¤í–‰
 	- nohup /path/go-ethereum/build/bin/geth --syncmode "fast" --cache "4196" --rpc --rpcapi "db,eth,net,web3,account,personal" &
+	
+	
+3. ethereum 1.9.10
+	- sudo add-apt-repository ppa:longsleep/golang-backports
+	- sudo apt-get update
+	- sudo apt-get install golang-go
+	
+	- wget https://github.com/ethereum/go-ethereum/archive/v1.9.10.tar.gz (ì‚¬ìš©ì ê³„ì •)
+	- tar -zxvf v1.8.27.tar.gz (ì‚¬ìš©ì ê³„ì •)
+	- make all (root)
