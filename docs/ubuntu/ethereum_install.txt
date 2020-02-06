@@ -14,5 +14,5 @@
 	- sudo apt-get install golang-go
 	
 	- wget https://github.com/ethereum/go-ethereum/archive/v1.9.10.tar.gz (사용자 계정)
-	- tar -zxvf v1.8.27.tar.gz (사용자 계정)
+	- tar -zxvf v1.9.10.tar.gz (사용자 계정)
 	- make all (root)
