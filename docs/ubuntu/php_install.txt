@@ -24,6 +24,7 @@
 	- /etc/php/7.2/fpm/php.ini
 		short_open_tag = On 변경
 		date.timezone = Asia/Seoul 변경
+		session.gc_maxlifetime = 43200
 		
 	- service php7.2-fpm restart
 
