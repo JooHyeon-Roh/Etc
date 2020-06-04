@@ -245,3 +245,85 @@ server {
 		deny all;
 	}
 }
+
+[nginx 사용자 실행]
+
+- vim /home/dev_web/nginx.conf
+
+worker_processes 1;
+error_log /home/dev_web/tmp/nginx.log;
+pid /home/dev_web/tmp/nginx.pid;
+
+events {
+        worker_connections  1024;
+}
+
+http {
+    include  /etc/nginx/mime.types;
+    index   index.php;
+    client_body_temp_path /home/dev_web/tmp;
+    proxy_temp_path /home/dev_web/tmp;
+    fastcgi_temp_path /home/dev_web/tmp;
+    uwsgi_temp_path /home/dev_web/tmp;
+    scgi_temp_path /home/dev_web/tmp;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                  '$status $body_bytes_sent "$http_referer" '
+                  '"$http_user_agent" "$http_x_forwarded_for" "$http_cookie" "$sent_http_content_type"';
+
+    access_log  /home/dev_web/tmp/nginx-access.log  main  buffer=32k;
+
+    gzip  on;
+
+    server {
+        charset UTF-8;
+        listen 80;
+        listen [::]:80;
+        server_name  192.168.59.128;
+		client_max_body_size 100M;
+        index index.php index.html index.htm index.nginx-debian.html;
+
+		location / {
+                #root   /home/dev_web/html/;
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+        
+        #error_page  404              /404.html;
+        
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+                root   /usr/share/nginx/html;
+        }
+        
+	location ~ \.php$ {
+                root /home/dev_web/html/;
+                fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                include        fastcgi_params;
+        }
+
+	location ~ /\. {
+                deny all;
+        }
+    }
+}
+
+- /etc/nginx폴더에있는 환경설정파일 복사 -> /home/dev_web
+
+/usr/sbin/nginx -c /home/dev_web/nginx.conf
+
+- php연동시에는 php-fpm 사용 계정을 dev_web으로 변경
+
+
+일반유저가 1024이하 포트를 사용하려면
+
+- e : effective -> 효력부여
+- p : Permitted -> 허용
+- i : Inheritable -> exec 할 때 권한 상속 여부
+
+setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
+getcap /usr/sbin/nginx
+setcap -r /usr/sbin/nginx (설정 빼기)
