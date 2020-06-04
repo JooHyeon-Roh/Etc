@@ -259,6 +259,7 @@ mkdir proxy_temp
 mkdir fastcgi_temp
 mkdir uwsgi_temp
 mkdir scgi_temp
+mkdir tmp
 
 
 worker_processes 1;
