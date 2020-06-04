@@ -250,65 +250,83 @@ server {
 
 - vim /home/dev_web/nginx.conf
 
+cd /usr/local/
+mkdir nginx
+cd nginx
+mkdir log
+mkdir client_body
+mkdir proxy_temp
+mkdir fastcgi_temp
+mkdir uwsgi_temp
+mkdir scgi_temp
+
+
 worker_processes 1;
-error_log /home/dev_web/tmp/nginx.log;
-pid /home/dev_web/tmp/nginx.pid;
+error_log /usr/local/nginx/log/nginx-error_log.log;
+pid /usr/local/nginx/tmp/nginx.pid;
 
 events {
-        worker_connections  1024;
+	worker_connections  1024;
 }
 
 http {
-    include  /etc/nginx/mime.types;
-    index   index.php;
-    client_body_temp_path /home/dev_web/tmp;
-    proxy_temp_path /home/dev_web/tmp;
-    fastcgi_temp_path /home/dev_web/tmp;
-    uwsgi_temp_path /home/dev_web/tmp;
-    scgi_temp_path /home/dev_web/tmp;
+	default_type  application/octet-stream;
+	include /usr/local/nginx/mime.types;
+	index index.html index.htm index.php;
+	client_body_temp_path /usr/local/nginx/client_body;
+	proxy_temp_path /usr/local/nginx/proxy_temp;
+	fastcgi_temp_path /usr/local/nginx/fastcgi_temp;
+	uwsgi_temp_path /usr/local/nginx/uwsgi_temp;
+	scgi_temp_path /usr/local/nginx/scgi_temp;
+	
+	sendfile off;
 
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                  '$status $body_bytes_sent "$http_referer" '
-                  '"$http_user_agent" "$http_x_forwarded_for" "$http_cookie" "$sent_http_content_type"';
+	#tcp_nopush on;
+	#tcp_nodelay on;
+	#keepalive_timeout 65;
+	#types_hash_max_size 2048;
+	#gzip  on;
+	
+	log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+					'$status $body_bytes_sent "$http_referer" '
+					'"$http_user_agent" "$http_x_forwarded_for" "$http_cookie" "$sent_http_content_type"';
 
-    access_log  /home/dev_web/tmp/nginx-access.log  main  buffer=32k;
+	access_log /usr/local/nginx/log/nginx-access.log main buffer=32k;
 
-    gzip  on;
-
-    server {
-        charset UTF-8;
-        listen 80;
-        listen [::]:80;
-        server_name  192.168.59.128;
+	server {
+		charset UTF-8;
+		listen 80;
+		listen [::]:80;
+		server_name  192.168.59.128;
 		client_max_body_size 100M;
-        index index.php index.html index.htm index.nginx-debian.html;
-
+		index index.php index.html index.htm index.nginx-debian.html;
+		
 		location / {
-                #root   /home/dev_web/html/;
-                try_files $uri $uri/ /index.php?$query_string;
-        }
-        
-        #error_page  404              /404.html;
-        
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-                root   /usr/share/nginx/html;
-        }
-        
-	location ~ \.php$ {
-                root /home/dev_web/html/;
-                fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                include        fastcgi_params;
-        }
-
-	location ~ /\. {
-                deny all;
-        }
-    }
+			#root   /home/dev_web/html/;
+			try_files $uri $uri/ /index.php?$query_string;
+		}
+		
+		#error_page  404              /404.html;
+		
+		# redirect server error pages to the static page /50x.html
+		#
+		error_page   500 502 503 504  /50x.html;
+		location = /50x.html {
+			root   /usr/share/nginx/html;
+		}
+		
+		location ~ \.php$ {
+			root /home/dev_web/html/;
+			fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
+			fastcgi_index  index.php;
+			fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+			include        fastcgi_params;
+		}
+		
+		location ~ /\. {
+			deny all;
+		}
+	}
 }
 
 - /etc/nginx폴더에있는 환경설정파일 복사 -> /home/dev_web
