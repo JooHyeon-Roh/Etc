@@ -1,4 +1,4 @@
-1. selinux ·ê È®ÀÎ ÈÄ º¯°æ
+1. selinux Â·Ãª ÃˆÂ®Ã€ÃŽ ÃˆÃ„ ÂºÂ¯Â°Ã¦
 	getsebool -a | grep httpd
 	setsebool -P httpd_can_sendmail on
 	setsebool -P httpd_enable_homedirs on
@@ -6,6 +6,7 @@
 	setsebool -P httpd_execmem on
 	setsebool -P httpd_can_network_connect on
 	setsebool -P httpd_ssi_exec on
+	setsebool -P httpd_can_network_connect_db on
 
 	chcon -Rv -t httpd_sys_rw_content_t /path/
 	chcon -Rv -t httpd_sys_script_exec_t /path/
