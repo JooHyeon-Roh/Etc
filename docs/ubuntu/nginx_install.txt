@@ -250,9 +250,10 @@ server {
 
 - vim /home/dev_web/nginx.conf
 
-cd /usr/local/
+cd /home/dev_web/
 mkdir nginx
 cd nginx
+mkdir conf.d
 mkdir log
 mkdir client_body
 mkdir proxy_temp
@@ -262,71 +263,79 @@ mkdir scgi_temp
 mkdir tmp
 
 
+vim nginx.conf
+
 worker_processes 1;
-error_log /usr/local/nginx/log/nginx-error_log.log;
-pid /usr/local/nginx/tmp/nginx.pid;
+error_log /home/dev_web/nginx/log/nginx-error_log.log;
+pid /home/dev_web/nginx/tmp/nginx.pid;
 
 events {
-	worker_connections  1024;
+        worker_connections  1024;
 }
 
 http {
-	default_type  application/octet-stream;
-	include /usr/local/nginx/mime.types;
-	index index.html index.htm index.php;
-	client_body_temp_path /usr/local/nginx/client_body;
-	proxy_temp_path /usr/local/nginx/proxy_temp;
-	fastcgi_temp_path /usr/local/nginx/fastcgi_temp;
-	uwsgi_temp_path /usr/local/nginx/uwsgi_temp;
-	scgi_temp_path /usr/local/nginx/scgi_temp;
+        include /home/dev_web/nginx/mime.types;
+        default_type  application/octet-stream;
+        index index.html index.htm index.php;
+        client_body_temp_path /home/dev_web/nginx/client_body;
+        proxy_temp_path /home/dev_web/nginx/proxy_temp;
+        fastcgi_temp_path /home/dev_web/nginx/fastcgi_temp;
+        uwsgi_temp_path /home/dev_web/nginx/uwsgi_temp;
+        scgi_temp_path /home/dev_web/nginx/scgi_temp;
+
+        sendfile on;
+
+        #tcp_nopush on;
+        #tcp_nodelay on;
+        #keepalive_timeout 65;
+        #types_hash_max_size 2048;
+        #gzip  on;
+
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                                        '$status $body_bytes_sent "$http_referer" '
+                                        '"$http_user_agent" "$http_x_forwarded_for" "$http_cookie" "$sent_http_content_type"';
+
+        access_log /home/dev_web/nginx/log/nginx-access.log main buffer=32k;
+
+        include /home/dev_web/nginx/conf.d/*.conf;
+}
+
+cd conf.d
+vim defualt.conf
+
+server {
+	charset UTF-8;
+	listen 80;
+	listen [::]:80;
+	server_name  v5.funnyfig.da.to;
+	client_max_body_size 100M;
+	index index.php index.html index.htm index.nginx-debian.html;
 	
-	sendfile off;
-
-	#tcp_nopush on;
-	#tcp_nodelay on;
-	#keepalive_timeout 65;
-	#types_hash_max_size 2048;
-	#gzip  on;
+	location / {
+		#root   /home/dev_web/public_html/;
+		try_files $uri $uri/ /index.php?$query_string;
+	}
 	
-	log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-					'$status $body_bytes_sent "$http_referer" '
-					'"$http_user_agent" "$http_x_forwarded_for" "$http_cookie" "$sent_http_content_type"';
-
-	access_log /usr/local/nginx/log/nginx-access.log main buffer=32k;
-
-	server {
-		charset UTF-8;
-		listen 80;
-		listen [::]:80;
-		server_name  192.168.59.128;
-		client_max_body_size 100M;
-		index index.php index.html index.htm index.nginx-debian.html;
-		
-		location / {
-			#root   /home/dev_web/html/;
-			try_files $uri $uri/ /index.php?$query_string;
-		}
-		
-		#error_page  404              /404.html;
-		
-		# redirect server error pages to the static page /50x.html
-		#
-		error_page   500 502 503 504  /50x.html;
-		location = /50x.html {
-			root   /usr/share/nginx/html;
-		}
-		
-		location ~ \.php$ {
-			root /home/dev_web/html/;
-			fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
-			fastcgi_index  index.php;
-			fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-			include        fastcgi_params;
-		}
-		
-		location ~ /\. {
-			deny all;
-		}
+	#error_page  404              /404.html;
+	
+	# redirect server error pages to the static page /50x.html
+	#
+	error_page   500 502 503 504  /50x.html;
+	location = /50x.html {
+		root   /usr/share/nginx/html;
+	}
+	
+	location ~ \.php$ {
+		root /home/dev_web/public_html/;
+		fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
+		fastcgi_index  index.php;
+		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+		include        fastcgi_params;
+		include /home/dev_web/nginx/mime.types;
+	}
+	
+	location ~ /\. {
+		deny all;
 	}
 }
 
