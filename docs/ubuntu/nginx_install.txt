@@ -307,7 +307,7 @@ server {
 	charset UTF-8;
 	listen 80;
 	listen [::]:80;
-	server_name  v5.funnyfig.da.to;
+	server_name  ;
 	client_max_body_size 100M;
 	index index.php index.html index.htm index.nginx-debian.html;
 	
@@ -331,7 +331,6 @@ server {
 		fastcgi_index  index.php;
 		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
 		include        fastcgi_params;
-		include /home/dev_web/nginx/mime.types;
 	}
 	
 	location ~ /\. {
