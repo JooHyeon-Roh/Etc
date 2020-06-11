@@ -312,7 +312,7 @@ server {
 	index index.php index.html index.htm index.nginx-debian.html;
 	
 	location / {
-		#root   /home/dev_web/public_html/;
+		root   /home/dev_web/public_html/;
 		try_files $uri $uri/ /index.php?$query_string;
 	}
 	
