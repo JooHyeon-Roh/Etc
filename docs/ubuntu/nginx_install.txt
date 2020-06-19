@@ -175,6 +175,13 @@
 	
 ssl 인증서 등록시
 
+SSL 인증서 발급 기관이 브라우저에 기본 포함되지 않아서 SSL 경로를 못 찾을 경우가 있다.
+
+아파치 httpd 에는 이런 용도로 SSLCACertificateFile 라는 지시자가 있지만 nginx 에는 없으므로 다음과 같이 SSL 인증서와 CA 인증서를 하나의 파일로 만들어야 한다.
+
+ cat /etc/pki/tls/certs/lesstif.com.crt /etc/pki/tls/certs/lesstif-root.crt > /etc/pki/tls/certs/lesstif.com.chained.crt
+
+
 server {
 	charset UTF-8;
 	listen 80;
