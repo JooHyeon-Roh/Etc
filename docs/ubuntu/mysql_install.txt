@@ -66,6 +66,8 @@
 		log-error=/var/log/mariadb/mariadb-error.log
 		
 		sql_mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+		
+		#default_time_zone="+00:00" #DB 시간 설정
 
 		[mysqldump]
 		default-character-set = utf8
