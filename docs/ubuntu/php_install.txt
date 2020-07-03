@@ -9,6 +9,10 @@
 
 		short_open_tag = On 변경
 		date.timezone = Asia/Seoul 변경
+	- utc 기본 설정
+		date.timezone = GMT+0 변경
+		date_default_timezone_set('Asia/Seoul'); //코드에서
+
 
 3. php 보안 설정
 	- vim /etc/php/7.2/apache2/php.ini
