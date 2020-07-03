@@ -65,6 +65,15 @@ ubuntu 설치시 패키지 설치 및 설정
 	- vim /etc/vim/vimrc
 		set encoding=utf-8
 		set fileencodings=utf-8,cp949
+		
+11. system timezone 설정
+	- timedatectl status
+	- timedatectl set-timezone 'Asia/Seoul'
+	- timedatectl set-timezone 'GMT'
+	
+	- symbolic link
+		- ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+		- ln -sf /usr/share/zoneinfo/GMT /etc/localtime
 
 
 * 필요에 의한 설정
