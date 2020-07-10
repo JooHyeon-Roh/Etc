@@ -74,6 +74,8 @@ ubuntu 설치시 패키지 설치 및 설정
 	- symbolic link
 		- ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 		- ln -sf /usr/share/zoneinfo/GMT /etc/localtime
+		
+	- rdate -s time.bora.net && clock -w
 
 
 * 필요에 의한 설정
