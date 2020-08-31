@@ -36,3 +36,5 @@ IPSec is supported by using the 'esp' ('50') and 'ah' ('51')  protocols.  These 
          ufw allow to 10.0.0.1 from 10.4.0.0/16 proto esp
          ufw allow to 10.0.0.1 proto ah
          ufw allow to 10.0.0.1 from 10.4.0.0/16 proto ah
+	 ufw allow proto esp to any
+	 ufw allow proto ah to any
