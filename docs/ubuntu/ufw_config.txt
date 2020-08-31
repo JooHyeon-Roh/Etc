@@ -28,3 +28,11 @@
 		-A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
 		-A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
 		-A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+		
+		
+IPSec is supported by using the 'esp' ('50') and 'ah' ('51')  protocols.  These  protocols
+       can only be used with the full syntax. For example:
+         ufw allow to 10.0.0.1 proto esp
+         ufw allow to 10.0.0.1 from 10.4.0.0/16 proto esp
+         ufw allow to 10.0.0.1 proto ah
+         ufw allow to 10.0.0.1 from 10.4.0.0/16 proto ah
