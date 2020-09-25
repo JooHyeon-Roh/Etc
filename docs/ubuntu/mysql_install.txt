@@ -156,9 +156,23 @@
 	- apt-get update
 	- apt-get install mysql-server => 패스워드 => Use Strong Password Encrypthon 선택
 	
-	- 나머지 
+	- 나머지 동일
 	
-	
+	mysql_secure_installation
+
+	Securing the MySQL server deployment.
+
+	Enter password for user root: 
+
+	VALIDATE PASSWORD COMPONENT can be used to test passwords
+	and improve security. It checks the strength of password
+	and allows the users to set only those passwords which are
+	secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+	Press y|Y for Yes, any other key for No: N
+	Using existing password for root.
+	Change the password for root ? ((Press y|Y for Yes, any other key for No) : N
+
 	
 	
 	
