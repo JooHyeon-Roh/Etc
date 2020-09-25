@@ -150,3 +150,16 @@
 	MariaDB [(none)]> set sql_mode='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 	MariaDB [(none)]> show variables like 'sql_mode';
 
+5. mysql 최신버전 설치 (8.0)
+	- wget https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
+	- dpkg -i mysql-apt-config_0.8.15-1_all.deb => OK 선택
+	- apt-get update
+	- apt-get install mysql-server => 패스워드 => Use Strong Password Encrypthon 선택
+	
+	- 나머지 
+	
+	
+	
+	
+	
+	
