@@ -2,6 +2,14 @@
 	- apt-get install libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-mysql php7.2-mbstring php7.2-gd php7.2-xml 
 	- ubuntu nginx 연동
 		- apt-get install php7.3-fpm composer
+	= php 7.0 버전 설치
+		- apt-get purge php7.*
+		- apt-get autoclean
+		- apt-get autoremove
+		- add-apt-repository -y ppa:ondrej/php
+		- apt list --upgradable
+		- apt-get update
+		- apt-get install libapache2-mod-php7.0 php7.0 php7.0-curl php7.0-mysql php7.0-mbstring php7.0-gd php7.0-xml php7.0-fpm composer php7.0-dev
 
 2. php 설정
 	- vim /etc/php/7.2/apache2/php.ini
