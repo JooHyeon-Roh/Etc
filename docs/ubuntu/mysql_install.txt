@@ -98,6 +98,10 @@
 		= CREATE DATABASE database;
 		= GRANT ALL PRIVILEGES ON database.* TO dev@localhost IDENTIFIED BY 'password';
 		
+		= mysql 8 버전부터는 계정부터 생성 후 권한을 줘야한다.
+			- CREATE USER user@localhost IDENTIFIED BY 'password';
+			- GRANT ALL PRIVILEGES ON database.* TO user@localhost;
+		
 	- 읽기 전용 계정 설정
 		= CREATE USER readonlyuser@localhost IDENTIFIED BY 'password'; 
 		= GRANT SELECT ON database.* TO readonlyuser@localhost;
