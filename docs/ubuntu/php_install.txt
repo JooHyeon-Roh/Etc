@@ -1,5 +1,5 @@
 1. php 설치
-	- apt-get install libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-mysql php7.2-mbstring php7.2-gd php7.2-xml 
+	- apt-get install libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-mysql php7.2-mbstring php7.2-gd php7.2-xml php7.2-fpm composer php7.2-dev
 	- ubuntu nginx 연동
 		- apt-get install php7.3-fpm composer
 	= php 7.0 버전 설치
