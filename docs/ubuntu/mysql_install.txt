@@ -101,6 +101,9 @@
 		= mysql 8 버전부터는 계정부터 생성 후 권한을 줘야한다.
 			- CREATE USER user@localhost IDENTIFIED BY 'password';
 			- GRANT ALL PRIVILEGES ON database.* TO user@localhost;
+				php 에서 접속 불가시 해당 설정을 이용한다
+				 - CREATE USER user@localhost IDENTIFIED WITH mysql_native_password BY 'passwd';
+				 - default-authentication-plugin=mysql_native_password (mysql.conf)
 		
 	- 읽기 전용 계정 설정
 		= CREATE USER readonlyuser@localhost IDENTIFIED BY 'password'; 
