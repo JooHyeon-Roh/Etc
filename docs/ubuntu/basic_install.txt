@@ -34,7 +34,7 @@ ubuntu 설치시 패키지 설치 및 설정
 	
 		- 의존 라이브러를 추가 했습니다.
 		debian base OS에서 다음과 같이 설치합니다. (개발 환경)
-		$ apt-get install libcurl4-dev-opennssl nlohmann-json-dev
+		apt-get install libcurl4-openssl-dev nlohmann-json-dev
 
 7. clang 설치시 llvm7 미사용 삭제
 	- git clone https://github.com/llvm/llvm-project.git
