@@ -31,6 +31,10 @@ ubuntu 설치시 패키지 설치 및 설정
 	- apt-get update
 	- apt-get install vim curl htop gcc-8 g++-8 gcc-9 g++-9 libtool bzip2 zip unzip rsync wget git cmake make autoconf automake libevent-2.1-6 libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev libncurses5-dev libncursesw5-dev build-essential xz-utils libstdc++-8-dev libkeyutils-dev libstdc++-9-dev net-tools libpthread-stubs0-dev
 	-  apt-get install libtolua++5.1-dev
+	
+		- 의존 라이브러를 추가 했습니다.
+		debian base OS에서 다음과 같이 설치합니다. (개발 환경)
+		$ apt-get install libcurl4-dev-opennssl nlohmann-json-dev
 
 7. clang 설치시 llvm7 미사용 삭제
 	- git clone https://github.com/llvm/llvm-project.git
