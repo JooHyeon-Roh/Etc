@@ -180,6 +180,14 @@
 	Using existing password for root.
 	Change the password for root ? ((Press y|Y for Yes, any other key for No) : N
 
+
+- 에러 발생시
+	- error while loading shared libraries: libmysqlclient.so.21: cannot open shared object file: No such file or directory
+	- wget https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
+	- dpkg -i mysql-apt-config_0.8.15-1_all.deb => OK 선택
+	- apt-get update
+	- apt-get install libmysqlclient21
+	
 	
 	
 	
