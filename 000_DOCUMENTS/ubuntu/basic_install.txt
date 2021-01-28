@@ -85,6 +85,13 @@ ubuntu 설치시 패키지 설치 및 설정
 		
 	- rdate -s time.bora.net && clock -w
 	
+	- locale 변경
+		- apt-get install language-pack-ko
+		- vim /etc/default/locale
+		- #LANG=C.UTF-8
+		  LANG=ko_KR.UTF-8
+		- source /etc/default/locale 
+	
 12. jdk 설치
 	- apt install default-jdk
 
