@@ -382,3 +382,34 @@ setcap -r /usr/sbin/nginx (설정 빼기)
 				endscript
 			}
 	- logrotate -f /etc/logrotate.d/user-nginx (바로적용)
+	
+- nginx systemctl 사용자 설정
+	- cd /lib/systemd/system
+	- vim user-nginx.service.
+		[Unit]
+		Description=nginx - high performance web server
+		Documentation=http://nginx.org/en/docs/
+		After=network-online.target remote-fs.target nss-lookup.target
+		Wants=network-online.target
+		
+		[Service]
+		Type=forking
+		User=dev_web
+		Group=dev_web
+		PIDFile=/home/dev_web/nginx/tmp/nginx.pid
+		ExecStart=/usr/sbin/nginx -c /home/dev_web/nginx/nginx.conf
+		ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /home/dev_web/nginx/tmp/nginx.pid)"
+		ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /home/dev_web/nginx/tmp/nginx.pid)"
+		
+		[Install]
+		WantedBy=multi-user.targe
+		
+	- cd /etc/systemd/system
+	- ln -s /lib/systemd/system/user-nginx.service ./
+	
+	- systemctl daemon-reload
+	- systemctl start user-nginx.service
+	- systemctl stop user-nginx.service
+	- systemctl status user-nginx.service
+	- systemctl reload user-nginx.service
+	
