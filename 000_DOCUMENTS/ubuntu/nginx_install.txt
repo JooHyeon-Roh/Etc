@@ -361,3 +361,24 @@ server {
 setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
 getcap /usr/sbin/nginx
 setcap -r /usr/sbin/nginx (설정 빼기)
+
+- nginx 사용자 계정 실행 로그 설정
+	- cd /etc/logrotated.d/
+	- vim user-nginx
+			/home/dev_web/nginx/log/*.log {
+				su root root
+				daily
+				missingok
+				rotate 52
+				compress
+				delaycompress
+				notifempty
+				create 640 dev_web dev_web
+				sharedscripts
+				postrotate
+					if [ -f /home/dev_web/nginx/tmp/nginx.pid ]; then
+						kill -USR1 `cat /home/dev_web/nginx/tmp/nginx.pid`
+					fi
+				endscript
+			}
+	- logrotate -f /etc/logrotate.d/user-nginx (바로적용)
