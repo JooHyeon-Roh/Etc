@@ -4,7 +4,7 @@
 	- ufw status verbose
 	- ufw show raw
 	- ufw allow from 192.168.0.100
-	- ufw allow from 192.168.0.100 to any port 22 proto tcp 
+	- ufw allow from 192.168.0.100 to any port 22 proto tcp
 	- ufw allow 80/tcp 
 	- ufw allow 3306/tcp
 	- ufw allow 6000:6007/tcp
