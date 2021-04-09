@@ -413,3 +413,8 @@ setcap -r /usr/sbin/nginx (설정 빼기)
 	- systemctl status user-nginx.service
 	- systemctl reload user-nginx.service
 	
+	
+	
+        location ~ .well-known/pki-validation {
+                root /home/prod_web/public_html/;
+        }
