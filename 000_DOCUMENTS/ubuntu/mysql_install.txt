@@ -1,3 +1,5 @@
+참고 : https://jsonobject.tistory.com/408
+
 1. mariadb 설치 및 확인
 	- apt-get install mariadb-server
 	- systemctl status mariadb
