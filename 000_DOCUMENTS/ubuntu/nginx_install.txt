@@ -25,10 +25,13 @@
 				#root   /home/dev_web/public_html/;
 				try_files $uri $uri/ /index.php?$query_string;
 			}
+			
+			#error_page 404 500 502 503 504 https://app.carryprotocol.io/company/error_page.php; #error_page 설정
 
 			location ~ \.php$ {
 				root /home/dev_web/public_html/;
 				fastcgi_pass   unix:/run/php/php7.2-fpm.sock;
+				#fastcgi_intercept_errors on; #error_page 설정
 				fastcgi_index  index.php;
 				fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
 				include        fastcgi_params;
@@ -291,6 +294,7 @@ http {
         scgi_temp_path /home/dev_web/nginx/scgi_temp;
 
         sendfile on;
+	server_tokens off;
 
         #tcp_nopush on;
         #tcp_nodelay on;
