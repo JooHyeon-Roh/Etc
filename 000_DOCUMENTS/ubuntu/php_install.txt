@@ -29,6 +29,8 @@
 	- register_globals = Off
 	- expose_php = Off
 	- magic_quotes_gpc = On
+	- use_trans_sid = 0
+	- url_rewriter.tags = ""
 
 [nginx php 연동]
 	- vim /etc/php/7.2/fpm/pool.d/www.conf
