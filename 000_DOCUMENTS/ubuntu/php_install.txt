@@ -62,3 +62,7 @@
 	- cd /etc/php/7.2/fpm/conf.d
 	- ln -s /etc/php/7.2/mods-available/swoole.ini 20-swoole.ini
 	
+	pecl install swoole-4.5.10
+
+	pecl uninstall swoole
+	
