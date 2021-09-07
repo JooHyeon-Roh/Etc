@@ -68,6 +68,17 @@ ubuntu 설치시 패키지 설치 및 설정
 	 공유메모리 확인 및 삭제
 	 ipcs
 	 ipcrm -M id
+	 
+	 
+	 커널 메세지 및 공유 메모리 용량 늘리기
+	 sysctl -w kernel.msgmax=32768
+	 sysctl -w kernel.msgmnb=32768
+
+
+	 vim /etc/sysctl.conf
+		  kernel.msgmax=32768
+		  kernel.msgmnb=32768
+	 
 
 10. vim 한글깨짐
 	- vim /etc/vim/vimrc
