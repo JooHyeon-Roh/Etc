@@ -1,4 +1,4 @@
-1. redis ��ġ
+1. redis ¼³Ä¡
 	- wget http://download.redis.io/releases/redis-4.0.11.tar.gz
 	- tar xvfz redis-4.0.11.tar.gz
 	- cd redis-4.0.11
@@ -7,6 +7,12 @@
 	- cd utils/
 	- ./install_server.sh
 	- ps -ef|grep redis
+	
+	- cd /etc/redis/
+	- vim port.conf
+	- bind -> 허용 변경 ( ex : 0.0.0.0 / all oepn) 
+	
+	- redis-server --daemonize yes
 
-2. hiredis ��ġ
+2. hiredis ¼³Ä¡
 	- git clone https://github.com/redis/hiredis && cd hiredis && make && make install && ldconfig
