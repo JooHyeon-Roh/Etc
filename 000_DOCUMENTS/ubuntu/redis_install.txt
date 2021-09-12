@@ -11,8 +11,9 @@
 	- cd /etc/redis/
 	- vim port.conf
 	- bind -> 허용 변경 ( ex : 0.0.0.0 / all oepn) 
+	- protected-mode no
 	
-	- redis-server --daemonize yes
+	- redis-server --daemonize yes --protected-mode no
 
 2. hiredis ¼³Ä¡
 	- git clone https://github.com/redis/hiredis && cd hiredis && make && make install && ldconfig
