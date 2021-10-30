@@ -7,6 +7,8 @@
 2. ethereum 실행
 	- nohup /path/go-ethereum/build/bin/geth --syncmode "fast" --cache "4196" --rpc --rpcapi "db,eth,net,web3,account,personal" &
 	
+	- nohup /home/prod_web/go-ethereum-1.10.11/build/bin/geth --syncmode fast --cache 8192 --http --http.api db,eth,net,web3,account,personal &
+	
 	
 3. ethereum 1.9.10
 	- sudo add-apt-repository ppa:longsleep/golang-backports
