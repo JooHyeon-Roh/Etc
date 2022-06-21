@@ -86,6 +86,15 @@
 
 	- vim /etc/mysql/mariadb.conf.d/50-server.cnf (주석처리 필요 / 외부접속)
 		#bind-address   = 127.0.0.1
+		
+	cd /etc/logrotate.d/
+
+	mkdir /var/log/mariadb
+	chown mysql.adm /var/log/mariadb
+	touch /var/log/mariadb/mariadb-slow.log
+	chown mysql:adm /var/log/mariadb/mariadb-slow.log
+
+	/usr/sbin/logrotate  -vf /etc/logrotate.d/mysql-server
 
 4. mysql 계정 설정 관련 명령어
 	- mysql -u root -p;
