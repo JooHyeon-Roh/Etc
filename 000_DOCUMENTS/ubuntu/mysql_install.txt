@@ -93,6 +93,8 @@
 	chown mysql.adm /var/log/mariadb
 	touch /var/log/mariadb/mariadb-slow.log
 	chown mysql:adm /var/log/mariadb/mariadb-slow.log
+	touch /var/log/mariadb/mariadb-error.log
+	chown mysql:adm /var/log/mariadb/mariadb-error.log
 
 	/usr/sbin/logrotate  -vf /etc/logrotate.d/mysql-server
 
