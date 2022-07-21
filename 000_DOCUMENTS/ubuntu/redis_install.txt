@@ -22,6 +22,11 @@
 
 	sudo apt-get update
 	sudo apt-get install redis
+	
+	systemctl status redis-server
+	systemctl start redis-server
+	
+	
 
 2. hiredis ¼³Ä¡
 	- git clone https://github.com/redis/hiredis && cd hiredis && make && make install && ldconfig
