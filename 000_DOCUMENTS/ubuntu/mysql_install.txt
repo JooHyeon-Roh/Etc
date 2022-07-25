@@ -12,6 +12,13 @@
 	- mysql_upgrade -u root -p
 	- service mysql restart
 	- systemctl status mariadb
+	
+	
+	- wget -O- https://mariadb.org/mariadb_release_signing_key.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mariadb.gpg
+	- echo deb [arch=amd64,arm64,ppc64el,s390x signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mariadb.org/repo/10.8/ubuntu/ jammy main | sudo tee /etc/apt/sources.list.d/mariadb.list
+	- apt update
+	- apt install mariadb-server mariadb-client
+	
 
 2. mariadb 보안설정
 	- mysql_secure_installation
