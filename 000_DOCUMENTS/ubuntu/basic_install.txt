@@ -41,6 +41,7 @@ ubuntu 설치시 패키지 설치 및 설정
 		
 		
 	- apt-get install vim curl htop libtool bzip2 zip unzip rsync wget git cmake make gcc g++ autoconf automake libevent-dev libboost-all-dev build-essential tcl sshpass psmisc libmysql++-dev libncurses5-dev libncursesw5-dev build-essential xz-utils libkeyutils-dev libstdc++-11-dev net-tools libpthread-stubs0-dev libtolua++5.1-dev libevent-2.1-7
+	- apt-get install libcurl4-openssl-dev nlohmann-json3-dev
 	
 	
 
