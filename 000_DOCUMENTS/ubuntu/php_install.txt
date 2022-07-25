@@ -67,7 +67,7 @@
 
 	pecl uninstall swoole
 	
-	apt install libcurl4-gnutls-dev libc-ares-dev
+	apt install libcurl4-gnutls-dev libc-ares-dev php-redis
 	
 4. php memcache
 	- apt-get install php7.2-json
