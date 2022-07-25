@@ -21,6 +21,7 @@
 
 2. mariadb 보안설정
 	- mysql_secure_installation
+	- mariadb-secure-installation
 	- root 패스워드가 없어 엔터로 넘긴 후 root 패스워드를 설정해준다
 	- Remove anonymous users? [Y/n]  y (익명의 사용자 제한)
 	- Disallow root login remotely? [Y/n]  n (원격에서 root 로그인 허용)
