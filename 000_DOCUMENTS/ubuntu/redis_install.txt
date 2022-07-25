@@ -29,6 +29,7 @@
 	
 	systemctl status redis-server
 	systemctl start redis-server
+	systemctl enable redis-server
 	
 	
 
